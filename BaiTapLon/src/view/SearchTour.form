@@ -142,6 +142,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Du L&#x1ecb;ch Trong N&#x1b0;&#x1edb;c"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTrongnuocActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -205,6 +208,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="X&#xe1;c nh&#x1ead;n"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXacnhanActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnHuy">
       <Properties>

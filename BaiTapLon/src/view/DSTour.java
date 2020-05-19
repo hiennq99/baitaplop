@@ -48,6 +48,11 @@ public class DSTour extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblDSchuyenbay);
 
         btnDat.setText("Đặt");
+        btnDat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDatActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Danh sách chuyến bay");
 
@@ -79,6 +84,12 @@ public class DSTour extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnDatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatActionPerformed
+        // TODO add your handling code here:
+        DangKyTour dk = new DangKyTour();
+        dk.show();
+    }//GEN-LAST:event_btnDatActionPerformed
 
     /**
      * @param args the command line arguments

@@ -5,6 +5,8 @@
  */
 package view;
 
+import javax.swing.DefaultComboBoxModel;
+
 /**
  *
  * @author quang
@@ -49,6 +51,11 @@ public class SearchTour extends javax.swing.JFrame {
         btnNuocngoai.setText("Du Lịch Nước Ngoài");
 
         btnTrongnuoc.setText("Du Lịch Trong Nước");
+        btnTrongnuoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTrongnuocActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -86,6 +93,11 @@ public class SearchTour extends javax.swing.JFrame {
         cbGia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnXacnhan.setText("Xác nhận");
+        btnXacnhan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXacnhanActionPerformed(evt);
+            }
+        });
 
         btnHuy.setText("Hủy");
 
@@ -152,6 +164,20 @@ public class SearchTour extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnTrongnuocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrongnuocActionPerformed
+        // TODO add your handling code here:
+        String [] listKH = {"Ha Noi","Ho Chi Minh City","Da Lat","Ha Long Bay","Phu Quoc"};
+        cbKhoihanh.setModel(new DefaultComboBoxModel(listKH));
+        cbDiemden.setModel(new DefaultComboBoxModel(listKH));
+        
+    }//GEN-LAST:event_btnTrongnuocActionPerformed
+
+    private void btnXacnhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacnhanActionPerformed
+        // TODO add your handling code here:
+        DSTour ds = new DSTour();
+        ds.show();
+    }//GEN-LAST:event_btnXacnhanActionPerformed
 
     /**
      * @param args the command line arguments

@@ -5,6 +5,8 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author quang
@@ -63,6 +65,11 @@ public class DangKyTour extends javax.swing.JFrame {
         });
 
         btnDangky.setText("Đăng ký");
+        btnDangky.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDangkyActionPerformed(evt);
+            }
+        });
 
         btnHuybo.setText("Hủy bỏ");
 
@@ -135,6 +142,23 @@ public class DangKyTour extends javax.swing.JFrame {
     private void txtHotenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHotenActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtHotenActionPerformed
+
+    private void btnDangkyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangkyActionPerformed
+        // TODO add your handling code here:
+        if(txtHoten.getText()=="" || txtDiachi.getText()=="" || txtEmail.getText()=="" || txtSdt.getText()=="" || txtSonguoi.getText()=="")
+        {
+            JOptionPane.showMessageDialog(rootPane, "Bạn Phải Nhập đủ thông tin");
+//            System.out.println(txtHoten.getText().trim()+"1");
+//            HinhThucThanhToan ht = new HinhThucThanhToan();
+//            ht.show();
+        }
+        else
+        {
+             System.out.println(txtHoten.getText().trim()+"1");
+            HinhThucThanhToan ht = new HinhThucThanhToan();
+            ht.show();
+        }
+    }//GEN-LAST:event_btnDangkyActionPerformed
 
     /**
      * @param args the command line arguments
