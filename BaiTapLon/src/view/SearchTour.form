@@ -137,6 +137,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Du L&#x1ecb;ch N&#x1b0;&#x1edb;c Ngo&#xe0;i"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNuocngoaiActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnTrongnuoc">
           <Properties>

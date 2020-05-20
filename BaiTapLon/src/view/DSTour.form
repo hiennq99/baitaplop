@@ -83,7 +83,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Danh s&#xe1;ch chuy&#x1ebf;n bay"/>
+        <Property name="text" type="java.lang.String" value="Danh s&#xe1;ch Tour"/>
       </Properties>
     </Component>
   </SubComponents>

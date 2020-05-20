@@ -54,7 +54,7 @@ public class DSTour extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Danh sách chuyến bay");
+        jLabel1.setText("Danh sách Tour");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
