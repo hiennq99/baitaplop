@@ -50,7 +50,10 @@
                                   <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="cbKhoihanh" min="-2" pref="204" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="cbKhoihanh" pref="204" max="32767" attributes="0"/>
+                                  <Component id="jTextField1" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
@@ -87,6 +90,7 @@
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cbGia" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="jTextField1" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="134" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -219,6 +223,8 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="H&#x1ee7;y"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextField1">
     </Component>
   </SubComponents>
 </Form>

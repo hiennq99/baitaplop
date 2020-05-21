@@ -13,10 +13,10 @@ go
 create table USERS
 (
 	IDuser char(4) PRIMARY KEY,
-	HoTen nvarchar(30) not null,
+	HoTen varchar(30) not null,
 	SoDT varchar(10),
 	Email varchar(30),
-	DiaChi nvarchar(30),
+	DiaChi varchar(30),
 	SoNguoi int
 )
 GO
@@ -24,14 +24,14 @@ GO
 create table QUOCGIA
 (
 	MaQG char(4) PRIMARY KEY,
-	TenQG nvarchar(20),
+	TenQG varchar(20)
 )
 GO
 
 create table DIADIEM
 (
 	MaDD char(4) PRIMARY KEY,
-	TenDD nvarchar(20),
+	TenDD varchar(20),
 	MaQG char(4),
 	CONSTRAINT fk_DIADIEM_MAQG FOREIGN KEY (MaQG) REFERENCES QUOCGIA(MaQG)
 )
@@ -40,12 +40,12 @@ GO
 create table TOUR
 (
 	MaTour char(10) PRIMARY KEY,
-	TenTour nvarchar(30),
+	TenTour varchar(30),
 	NgayKH date,
 	ThoiLuong int,
 	NoiKH char(4),
 	NoiDen char(4),
-	Gia MONEY,
+	Gia char(15),
 	CONSTRAINT fk_TOUR_KH FOREIGN KEY (NoiKH) REFERENCES DIADIEM(MaDD),
 	CONSTRAINT fk_TOUR_DD FOREIGN KEY (NoiDen) REFERENCES DIADIEM(MaDD)
 
@@ -56,14 +56,14 @@ create table VE
 	IDve char(4) PRIMARY KEY,
 	IDuser char(4),
 	MaTour char(10),
-	TenVe nvarchar(30),
+	TenVe varchar(30),
 	CONSTRAINT fk_VE_IDuser FOREIGN KEY(IDuser) REFERENCES USERS(IDuser),
 	CONSTRAINT fk_VE_MaTour FOREIGN KEY(MaTour) REFERENCES TOUR(MaTour)
 )
 
 -- INSERT DU LIEU
 
-insert into QUOCGIA values ('QG01',N'Trong nước'), ('QG02',N'Nước ngoài');
+insert into QUOCGIA values ('QG01','Trong nước'), ('QG02','Nước ngoài');
 
 insert into DIADIEM values ('DD01','Ha Noi','QG01'),
 ('DD02','Ho Chi Minh City','QG01'),
@@ -84,11 +84,11 @@ insert into USERS values ('ID01','Nguyen Van A','072139123','nva@gmail.com','Ha 
 
 
 
-insert into TOUR values ('TO1','Du lich HCM City','2006-06-05',7,'DD01','DD07',9000000),
-('T02','Tham quan Vinh Ha Long','2020-10-06',4,'DD02','DD04',123000),
-('T03','Du lich Brazil','2020-12-11',12,'DD05','DD10',4500000),
-('T04','Dao ngoc Phu Quoc','2019-11-09',14,'DD03','DD05',871000),
-('T05','Make America Stupid','2021-06-15',8,'DD02','DD07',1250000);
+insert into TOUR values ('TO1','Du lich HCM City','2006-06-05',7,'DD01','DD07','9000000'),
+('T02','Tham quan Vinh Ha Long','2020-10-06',4,'DD02','DD04','123000'),
+('T03','Du lich Brazil','2020-12-11',12,'DD05','DD10','4500000'),
+('T04','Dao ngoc Phu Quoc','2019-11-09',14,'DD03','DD05','871000'),
+('T05','Make America Stupid','2021-06-15',8,'DD02','DD07','1250000');
 
 
 INSERT INTO VE values ('VE01','ID01','T05','Ve di My'),

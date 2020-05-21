@@ -60,6 +60,7 @@ public class SearchTour extends javax.swing.JFrame {
         cbGia = new javax.swing.JComboBox();
         btnXacnhan = new javax.swing.JButton();
         btnHuy = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -150,7 +151,9 @@ public class SearchTour extends javax.swing.JFrame {
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel4))
                                 .addGap(18, 18, 18)
-                                .addComponent(cbKhoihanh, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cbKhoihanh, 0, 204, Short.MAX_VALUE)
+                                    .addComponent(jTextField1))))
                         .addGap(70, 70, 70)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -177,7 +180,8 @@ public class SearchTour extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
-                    .addComponent(cbGia, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbGia, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnXacnhan, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -198,8 +202,6 @@ public class SearchTour extends javax.swing.JFrame {
             dd.setMaDiaDiem(rs.getString("MaDD"));
             dd.setTenDiaDiem(rs.getString("TenDD"));
             dd.setMaQG(rs.getString("MaQG"));
-            
-            
             listDD.add(dd);
         }
         return listDD;
@@ -317,5 +319,6 @@ public class SearchTour extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
