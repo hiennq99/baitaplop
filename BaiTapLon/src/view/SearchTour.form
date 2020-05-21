@@ -213,7 +213,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnXacnhan">
       <Properties>
-        <Property name="text" type="java.lang.String" value="X&#xe1;c nh&#x1ead;n"/>
+        <Property name="text" type="java.lang.String" value="T&#xec;m Tour"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXacnhanActionPerformed"/>

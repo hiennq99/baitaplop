@@ -83,15 +83,43 @@ insert into USERS values ('ID01','Nguyen Van A','072139123','nva@gmail.com','Ha 
 ('ID04','Le Thu D','125125123','ltd@gmail.com','Lao Cai',7);
 
 
-
-insert into TOUR values ('TO1','Du lich HCM City','2006-06-05',7,'DD01','DD07','9000000'),
+insert into TOUR values ('T01','Du lich HCM City','2006-06-05',7,'DD01','DD07','9000000'),
 ('T02','Tham quan Vinh Ha Long','2020-10-06',4,'DD02','DD04','123000'),
 ('T03','Du lich Brazil','2020-12-11',12,'DD05','DD10','4500000'),
 ('T04','Dao ngoc Phu Quoc','2019-11-09',14,'DD03','DD05','871000'),
-('T05','Make America Stupid','2021-06-15',8,'DD02','DD07','1250000');
-
+('T05','Make America Stupid','2021-06-15',8,'DD02','DD07','1250000'),
+('T06','Paris trang le','2020-12-11',7,'DD01','DD08','1750000'),
+('T07','Mua xuan Arab','2022-06-15',6,'DD02','DD06','7500000'),
+('T08','Nuoc Y hao hoa','2021-07-17',8,'DD05','DD09','2250000'),
+('T09','Thang Long 1000','2021-06-15',8,'DD02','DD01','1050000'),
+('T10','Da Lat tuoi dep','2020-09-07',7,'DD02','DD03','900000'),
+('T11','Welcome to Vietnam','2020-11-23',12,'DD08','DD01','3250000'),
+('T12','Tham quan Burj Khalifa','2019-12-12',9,'DD01','DD06','7250000'),
+('T13','Nam My Sampa','2020-02-02',10,'DD01','DD10','5250000'),
+('T14','Nu than New York','2020-10-10',8,'DD01','DD07','8250000'),
+('T15','Make America Stupid','2021-06-15',8,'DD03','DD07','2250000'),
+('T16','Tham quan Burj Khalifa','2019-12-12',8,'DD03','DD06','6250000'),
+('T17','Nuoc Y hao hoa','2021-07-17',8,'DD01','DD09','6250000'),
+('T18','Tham quan Vinh Ha Long','2020-10-06',4,'DD01','DD04','93000'),
+('T19','Dao ngoc Phu Quoc','2019-11-10',8,'DD01','DD05','671000');
 
 INSERT INTO VE values ('VE01','ID01','T05','Ve di My'),
 ('VE02','ID03','T04','Ve di Phu Quoc'),
 ('VE03','ID02','T05','Ve di My'),
 ('VE04','ID04','T03','Ve di Nam My');
+
+select TOUR.MaTour, TenTour, NgayKH, NoiKH
+from TOUR inner join DIADIEM on TOUR.NoiKH=DIADIEM.MaDD
+
+
+create function fn_Thongke(@noikh char(4), @noiden char(4))
+returns @bang table(matour char(4), tentour varchar(20), ngaykh datetime, thoiluong int, noikhoih char(4), noidend char(4), gia char(15))
+as
+begin
+	insert into @bang
+	select * from TOUR
+	where NoiKH=@noikh and NoiDen=@noiden	
+	return
+end
+
+select * from fn_Thongke('DD02','DD06')
