@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import java.security.spec.*;
 
 /**
  *
@@ -266,7 +267,7 @@ public class SearchTour extends javax.swing.JFrame {
             Logger.getLogger(SearchTour.class.getName()).log(Level.SEVERE, null, ex);
         }
         cbGia.setModel(new DefaultComboBoxModel(listTour.toArray()));
-        cbKhoihanh.setModel(new DefaultComboBoxModel(listDD.toArray()));
+        //cbKhoihanh.setModel(new DefaultComboBoxModel(listDD.toArray()));
         cbDiemden.setModel(new DefaultComboBoxModel(listDD.toArray()));
     }//GEN-LAST:event_btnNuocngoaiActionPerformed
 
