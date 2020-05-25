@@ -5,6 +5,8 @@
  */
 package Dao;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author quang
@@ -18,7 +20,33 @@ public class Tour {
     private String NoiKH;
     private String NoiDen;
     private String Gia;
+    private String A;
+    private String B;
+    private ArrayList<Tour> dsTour = new ArrayList<>();
 
+    public String getA() {
+        return A;
+    }
+
+    public void setA(String A) {
+        this.A = A;
+    }
+
+    public String getB() {
+        return B;
+    }
+
+    public void setB(String B) {
+        this.B = B;
+    }
+
+    public ArrayList<Tour> getDsTour() {
+        return dsTour;
+    }
+
+    public void setDsTour(ArrayList<Tour> dsTour) {
+        this.dsTour = dsTour;
+    }
     public Tour() {
     }
 

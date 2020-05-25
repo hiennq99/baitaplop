@@ -5,14 +5,35 @@
  */
 package Dao;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author quang
  */
 public class DiaDiem {
+
     private String MaDiaDiem;
     private String tenDiaDiem;
     private String MaQG;
+    private ArrayList<DiaDiem> dsDD = new ArrayList<>();
+    private ArrayList<DiaDiem> dsKH = new ArrayList<>();
+
+    public ArrayList<DiaDiem> getDsDD() {
+        return dsDD;
+    }
+
+    public void setDsDD(ArrayList<DiaDiem> dsDD) {
+        this.dsDD = dsDD;
+    }
+
+    public ArrayList<DiaDiem> getDsKH() {
+        return dsKH;
+    }
+
+    public void setDsKH(ArrayList<DiaDiem> dsKH) {
+        this.dsKH = dsKH;
+    }
 
     public DiaDiem() {
     }
@@ -49,9 +70,7 @@ public class DiaDiem {
 
     @Override
     public String toString() {
-        return  tenDiaDiem ;
+        return tenDiaDiem;
     }
 
-    
-    
 }

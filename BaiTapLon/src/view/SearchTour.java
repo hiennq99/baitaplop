@@ -27,18 +27,23 @@ public class SearchTour extends javax.swing.JFrame {
     /**
      * Creates new form SearchTour
      */
-    private static ArrayList<DiaDiem> listDD ;
-    private static ArrayList<Tour> listTour;
+    private static   ArrayList<DiaDiem> listDD;
+    private static   ArrayList<DiaDiem> ListKH;
+    private static   ArrayList<Tour> listTour;
     public DBConnector db = new DBConnector();
-    private static String query=null;
-    private static Connection con=null;
-    private static Statement st=null;
-    private static ResultSet rs=null;
-    public SearchTour() {
+    private static String query = null;
+    private static Connection con = null;
+    private static Statement st = null;
+    private static ResultSet rs = null;
+    private static final DiaDiem d = new DiaDiem();
+    private static final Tour t= new Tour();
+    
+    public SearchTour() throws Exception {
         db.establishConnection("jdbc:derby://localhost:1527/BTL", "admins", "123");
         initComponents();
+       
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -192,26 +197,23 @@ public class SearchTour extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public ArrayList getTrongNuoc(String query) throws Exception
-    {
+    public ArrayList getTrongNuoc(String query, ArrayList a) throws Exception {
         //Lay thong tin trong nuoc
 //        query = "select * from DIADIEM where MaQG='QG01'";
         rs = db.queryData(query);
-        while(rs.next())
-        {
+        while (rs.next()) {
             DiaDiem dd = new DiaDiem();
             dd.setMaDiaDiem(rs.getString("MaDD"));
             dd.setTenDiaDiem(rs.getString("TenDD"));
             dd.setMaQG(rs.getString("MaQG"));
-            listDD.add(dd);
+            a.add(dd);
         }
-        return listDD;
+        return a;
     }
-    public ArrayList layGiaTien(String query) throws Exception
-    {
+
+    public ArrayList layGiaTien(String query, ArrayList a) throws Exception {
         rs = db.queryData(query);
-        while(rs.next())
-        {
+        while (rs.next()) {
             Tour t = new Tour();
             t.setGia(rs.getString("MaTour"));
             t.setTenTour(rs.getString("TenTour"));
@@ -220,55 +222,73 @@ public class SearchTour extends javax.swing.JFrame {
             t.setNoiKH(rs.getString("NoiKH"));
             t.setNoiDen(rs.getString("NoiDen"));
             t.setGia(rs.getString("Gia"));
-            listTour.add(t);
+            a.add(t);
         }
-        return listTour;
+        return a;
     }
+
     private void btnTrongnuocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrongnuocActionPerformed
-        // TODO add your handling code here:
-       listDD = new ArrayList<>();
-       listTour = new ArrayList<>();
-       Tour t = new Tour();
-       query = "select * from DIADIEM where MaQG='QG01'";
         try {
-            listTour = layGiaTien("select * from Tour");
-            
+            // TODO add your handling code here:
+            ListKH = new ArrayList<>();
+            listTour = new ArrayList<>();
+            getTrongNuoc("select * from DIADIEM where MaQG='QG01'", ListKH);
+            layGiaTien("select * from Tour",listTour);
+            d.setDsKH(ListKH);
+            t.setDsTour(listTour);
+            listTour = t.getDsTour();
+            cbGia.setModel(new DefaultComboBoxModel(t.getDsTour().toArray()));
+            cbKhoihanh.setModel(new DefaultComboBoxModel(d.getDsKH().toArray()));
+            cbDiemden.setModel(new DefaultComboBoxModel(d.getDsKH().toArray()));
         } catch (Exception ex) {
             Logger.getLogger(SearchTour.class.getName()).log(Level.SEVERE, null, ex);
         }
-        try {
-            listDD=getTrongNuoc(query);
-//            System.out.println(listDD);
-        } catch (Exception ex) {
-            Logger.getLogger(SearchTour.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        cbGia.setModel(new DefaultComboBoxModel(listTour.toArray()));
-        cbKhoihanh.setModel(new DefaultComboBoxModel(listDD.toArray()));
-        cbDiemden.setModel(new DefaultComboBoxModel(listDD.toArray()));
-        
+
     }//GEN-LAST:event_btnTrongnuocActionPerformed
 
     private void btnXacnhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacnhanActionPerformed
-        // TODO add your handling code here:
-        DSTour ds = new DSTour();
-        ds.show();
-    }//GEN-LAST:event_btnXacnhanActionPerformed
-
-    private void btnNuocngoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuocngoaiActionPerformed
-        // TODO add your handling code here:
-        listDD = new ArrayList<>();
-        listTour = new ArrayList<>();
-       query = "select * from DIADIEM where MaQG='QG02'";
         try {
-            listTour = layGiaTien("select * from Tour");
-            listDD=getTrongNuoc(query);
-//            System.out.println(listDD);
+            // TODO add your handling code here:
+            DSTour ds = new DSTour();
+            
+            listTour = new ArrayList<>();
+            listDD = new ArrayList<>();
+            getTrongNuoc("select * from DIADIEM", listDD);
+            ds.settittle(cbKhoihanh.getSelectedItem().toString(),cbDiemden.getSelectedItem().toString());
+            ds.show();
+            this.setVisible(false);
+            String a = listDD.get(cbKhoihanh.getSelectedIndex()).getMaDiaDiem();
+            String b = listDD.get(cbDiemden.getSelectedIndex()).getMaDiaDiem();
+            for(DiaDiem s : listDD)
+                System.out.println(s);
+            layGiaTien("select * from Tour where NoiKH='"+a+"' and NoiDen='"+b+"'",listTour);
+            ds.setTable(listTour);
+//        Tour t = new Tour();
+//        t.setA();
         } catch (Exception ex) {
             Logger.getLogger(SearchTour.class.getName()).log(Level.SEVERE, null, ex);
         }
-        cbGia.setModel(new DefaultComboBoxModel(listTour.toArray()));
-        //cbKhoihanh.setModel(new DefaultComboBoxModel(listDD.toArray()));
-        cbDiemden.setModel(new DefaultComboBoxModel(listDD.toArray()));
+    }//GEN-LAST:event_btnXacnhanActionPerformed
+
+    private void btnNuocngoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuocngoaiActionPerformed
+        try {
+            // TODO add your handling code here:
+            ListKH = new ArrayList<>();
+            listDD = new ArrayList<>();
+            listTour = new ArrayList<>();
+            listTour = new ArrayList<>();
+            getTrongNuoc("select * from DIADIEM where MaQG='QG01'", ListKH);
+            getTrongNuoc("select * from DIADIEM where MaQG='QG02'", listDD);
+            layGiaTien("select * from Tour",listTour);
+            d.setDsDD(listDD);
+            d.setDsKH(ListKH);
+            t.setDsTour(listTour);
+            cbGia.setModel(new DefaultComboBoxModel(t.getDsTour().toArray()));
+            cbKhoihanh.setModel(new DefaultComboBoxModel(d.getDsKH().toArray()));
+            cbDiemden.setModel(new DefaultComboBoxModel(d.getDsDD().toArray()));
+        } catch (Exception ex) {
+            Logger.getLogger(SearchTour.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnNuocngoaiActionPerformed
 
     /**
@@ -297,15 +317,19 @@ public class SearchTour extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(SearchTour.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SearchTour().setVisible(true);
+                try {
+                    new SearchTour().setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(SearchTour.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHuy;
     private javax.swing.JButton btnNuocngoai;

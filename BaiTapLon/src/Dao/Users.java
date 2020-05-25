@@ -16,7 +16,7 @@ public class Users {
     private String Email;
     private String DiaChi;
     private int soNguoi;
-
+    
     public Users() {
     }
 
@@ -27,6 +27,7 @@ public class Users {
         this.Email = Email;
         this.DiaChi = DiaChi;
         this.soNguoi = soNguoi;
+        
     }
 
     public String getMaUsers() {

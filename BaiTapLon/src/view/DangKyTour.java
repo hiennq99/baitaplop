@@ -145,18 +145,51 @@ public class DangKyTour extends javax.swing.JFrame {
 
     private void btnDangkyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangkyActionPerformed
         // TODO add your handling code here:
-        if(txtHoten.getText()=="" || txtDiachi.getText()=="" || txtEmail.getText()=="" || txtSdt.getText()=="" || txtSonguoi.getText()=="")
-        {
-            JOptionPane.showMessageDialog(rootPane, "Bạn Phải Nhập đủ thông tin");
-//            System.out.println(txtHoten.getText().trim()+"1");
-//            HinhThucThanhToan ht = new HinhThucThanhToan();
-//            ht.show();
-        }
+        String HoTen = null;        String SDT = null;
+        String eMail = null;        String diaChi = null;
+        int soNguoi;
+        boolean check = true;
+
+        if(!txtHoten.getText().equals(""))
+            HoTen = txtHoten.getText();
         else
         {
-             System.out.println(txtHoten.getText().trim()+"1");
-            HinhThucThanhToan ht = new HinhThucThanhToan();
-            ht.show();
+            JOptionPane.showMessageDialog(this, "Tên không được trống");
+            check = false;
+        }
+        if(!txtSdt.getText().equals(""))
+            SDT = txtSdt.getText();
+        else
+        {
+            JOptionPane.showMessageDialog(this, "SĐT không được trống");
+            check = false;
+        }
+        if(!txtEmail.getText().equals(""))
+            eMail = txtEmail.getText();
+        else
+        {
+            JOptionPane.showMessageDialog(this, "eMail không được trống");
+            check = false;
+        }
+        if(!txtDiachi.getText().equals(""))
+            diaChi = txtDiachi.getText();
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Địa Chỉ không được trống");
+            check = false;
+        }
+        if(!txtSonguoi.getText().equals(""))
+            soNguoi = Integer.parseInt(txtSonguoi.getText());
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Số người không được trống");
+            check = false;
+        }
+        if(check == true)
+        {
+                    
+                    //ht.show();
+                    this.hide();
         }
     }//GEN-LAST:event_btnDangkyActionPerformed
 
