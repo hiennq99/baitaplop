@@ -108,6 +108,7 @@ INSERT INTO VE values ('VE01','ID01','T05','Ve di My'),
 ('VE03','ID02','T05','Ve di My'),
 ('VE04','ID04','T03','Ve di Nam My');
 
+select * from Tour where NoiKH='DD02' and NoiDen='DD04';
 select TOUR.MaTour, TenTour, NgayKH, NoiKH
 from TOUR inner join DIADIEM on TOUR.NoiKH=DIADIEM.MaDD
 

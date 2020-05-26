@@ -200,6 +200,9 @@ public class SearchTour extends javax.swing.JFrame {
     public ArrayList getTrongNuoc(String query, ArrayList a) throws Exception {
         //Lay thong tin trong nuoc
 //        query = "select * from DIADIEM where MaQG='QG01'";
+        // lấy giá tiền 
+        // rs là 1 bảng đc đổ từ db về them query
+        // tất cả các rs dều đổ về 1 arraylist để thực hiện thêm sửa xóa
         rs = db.queryData(query);
         while (rs.next()) {
             DiaDiem dd = new DiaDiem();
