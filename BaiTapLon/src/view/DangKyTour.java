@@ -5,7 +5,17 @@
  */
 package view;
 
+import Dao.DiaDiem;
+import Dao.Users;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.control.ButtonType;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.OK_CANCEL_OPTION;
+import static javax.swing.JOptionPane.OK_OPTION;
+import static javax.swing.JOptionPane.YES_NO_OPTION;
 
 /**
  *
@@ -19,6 +29,8 @@ public class DangKyTour extends javax.swing.JFrame {
     public DangKyTour() {
         initComponents();
     }
+    private static ResultSet rs = null;
+    private static final DBConnector db = new DBConnector();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -142,54 +154,99 @@ public class DangKyTour extends javax.swing.JFrame {
     private void txtHotenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHotenActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtHotenActionPerformed
+    public ArrayList getUser(String query, ArrayList a) throws Exception {
+        //Lay thong tin trong nuoc
+//        query = "select * from DIADIEM where MaQG='QG01'";
+        // lấy giá tiền 
+        // rs là 1 bảng đc đổ từ db về them query
+        // tất cả các rs dều đổ về 1 arraylist để thực hiện thêm sửa xóa
 
+        rs = db.queryData(query);
+        while (rs.next()) {
+            Users dd = new Users();
+            dd.setMaUsers(rs.getString("IDuser"));
+            dd.setHoTen(rs.getString("HoTen"));
+            dd.setSoDR(rs.getString("SoDT"));
+            dd.setEmail(rs.getString("Email"));
+            dd.setDiaChi(rs.getString("DiaChi"));
+            dd.setSoNguoi(rs.getInt("SoNguoi"));
+            a.add(dd);
+        }
+        return a;
+    }
     private void btnDangkyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangkyActionPerformed
         // TODO add your handling code here:
-        String HoTen = null;        String SDT = null;
-        String eMail = null;        String diaChi = null;
-        int soNguoi;
+        String HoTen = null;
+        String SDT = null;
+        String eMail = null;
+        String diaChi = null;
+        int soNguoi = 0;
         boolean check = true;
 
-        if(!txtHoten.getText().equals(""))
+        if (!txtHoten.getText().equals("")) {
             HoTen = txtHoten.getText();
-        else
-        {
+        } else {
             JOptionPane.showMessageDialog(this, "Tên không được trống");
             check = false;
         }
-        if(!txtSdt.getText().equals(""))
+        if (!txtSdt.getText().equals("")) {
             SDT = txtSdt.getText();
-        else
-        {
+        } else {
             JOptionPane.showMessageDialog(this, "SĐT không được trống");
             check = false;
         }
-        if(!txtEmail.getText().equals(""))
+        if (!txtEmail.getText().equals("")) {
             eMail = txtEmail.getText();
-        else
-        {
+        } else {
             JOptionPane.showMessageDialog(this, "eMail không được trống");
             check = false;
         }
-        if(!txtDiachi.getText().equals(""))
+        if (!txtDiachi.getText().equals("")) {
             diaChi = txtDiachi.getText();
-        else
-        {
+        } else {
             JOptionPane.showMessageDialog(this, "Địa Chỉ không được trống");
             check = false;
         }
-        if(!txtSonguoi.getText().equals(""))
+        if (!txtSonguoi.getText().equals("")) {
             soNguoi = Integer.parseInt(txtSonguoi.getText());
-        else
-        {
+        } else {
             JOptionPane.showMessageDialog(this, "Số người không được trống");
             check = false;
         }
-        if(check == true)
-        {
-                    
-                    //ht.show();
-                    this.hide();
+        if (check == true) {
+            ArrayList<Users> us = new ArrayList<>();
+            try {
+                getUser("select * from USERS", us);
+            } catch (Exception ex) {
+                Logger.getLogger(DangKyTour.class.getName()).log(Level.SEVERE, null, ex.toString());
+            }
+         
+            int ID = us.size();
+            String user = "ID0";
+            if (ID >= 10) {
+                user = "ID";
+            }
+
+            try {
+                db.updateData("insert into USERS values" + "('" + user + ID + "','" + HoTen + "','" + SDT + "','" + eMail + "','" + diaChi + "'," + soNguoi + ")");
+            } catch (Exception ex) {
+                Logger.getLogger(DangKyTour.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println("insert into USERS values" + "('" + user + ID + "','" + HoTen + "','" + SDT + "','" + eMail + "','" + diaChi + "'," + soNguoi + ")");
+            System.out.println(ID);
+            System.out.println(user);
+            int a = JOptionPane.showConfirmDialog(rootPane, "Xác nhận đặt Tour", "Thông Báo", OK_OPTION);
+            if (a == OK_OPTION) {
+                try {
+                    JOptionPane.showConfirmDialog(rootPane, "Đặt Tour thành công", "Thông báo", OK_OPTION);
+
+                } catch (Exception ex) {
+                    Logger.getLogger(DangKyTour.class.getName()).log(Level.SEVERE, null, ex.toString());
+                }
+
+            }
+            //ht.show();
+            this.hide();
         }
     }//GEN-LAST:event_btnDangkyActionPerformed
 
