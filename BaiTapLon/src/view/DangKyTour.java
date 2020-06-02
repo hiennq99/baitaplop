@@ -7,6 +7,7 @@ package view;
 
 import Dao.DiaDiem;
 import Dao.Users;
+import controller.DAOuser;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -16,6 +17,7 @@ import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.OK_CANCEL_OPTION;
 import static javax.swing.JOptionPane.OK_OPTION;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
+import validate.Validator;
 
 /**
  *
@@ -26,11 +28,11 @@ public class DangKyTour extends javax.swing.JFrame {
     /**
      * Creates new form DangKyTour
      */
+    private DangKyTour home;
+
     public DangKyTour() {
         initComponents();
     }
-    private static ResultSet rs = null;
-    private static final DBConnector db = new DBConnector();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -154,99 +156,42 @@ public class DangKyTour extends javax.swing.JFrame {
     private void txtHotenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHotenActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtHotenActionPerformed
-    public ArrayList getUser(String query, ArrayList a) throws Exception {
-        //Lay thong tin trong nuoc
-//        query = "select * from DIADIEM where MaQG='QG01'";
-        // lấy giá tiền 
-        // rs là 1 bảng đc đổ từ db về them query
-        // tất cả các rs dều đổ về 1 arraylist để thực hiện thêm sửa xóa
 
-        rs = db.queryData(query);
-        while (rs.next()) {
-            Users dd = new Users();
-            dd.setMaUsers(rs.getString("IDuser"));
-            dd.setHoTen(rs.getString("HoTen"));
-            dd.setSoDR(rs.getString("SoDT"));
-            dd.setEmail(rs.getString("Email"));
-            dd.setDiaChi(rs.getString("DiaChi"));
-            dd.setSoNguoi(rs.getInt("SoNguoi"));
-            a.add(dd);
-        }
-        return a;
-    }
     private void btnDangkyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangkyActionPerformed
         // TODO add your handling code here:
-        String HoTen = null;
-        String SDT = null;
-        String eMail = null;
-        String diaChi = null;
-        int soNguoi = 0;
-        boolean check = true;
-
-        if (!txtHoten.getText().equals("")) {
-            HoTen = txtHoten.getText();
-        } else {
-            JOptionPane.showMessageDialog(this, "Tên không được trống");
-            check = false;
-        }
-        if (!txtSdt.getText().equals("")) {
-            SDT = txtSdt.getText();
-        } else {
-            JOptionPane.showMessageDialog(this, "SĐT không được trống");
-            check = false;
-        }
-        if (!txtEmail.getText().equals("")) {
-            eMail = txtEmail.getText();
-        } else {
-            JOptionPane.showMessageDialog(this, "eMail không được trống");
-            check = false;
-        }
-        if (!txtDiachi.getText().equals("")) {
-            diaChi = txtDiachi.getText();
-        } else {
-            JOptionPane.showMessageDialog(this, "Địa Chỉ không được trống");
-            check = false;
-        }
-        if (!txtSonguoi.getText().equals("")) {
-            soNguoi = Integer.parseInt(txtSonguoi.getText());
-        } else {
-            JOptionPane.showMessageDialog(this, "Số người không được trống");
-            check = false;
-        }
-        if (check == true) {
-            ArrayList<Users> us = new ArrayList<>();
-            try {
-                getUser("select * from USERS", us);
-            } catch (Exception ex) {
-                Logger.getLogger(DangKyTour.class.getName()).log(Level.SEVERE, null, ex.toString());
+        boolean isSuccess = true;
+        ArrayList<Validator> data = new ArrayList<>();
+        Validator hoTen = new Validator(txtHoten.getText(), new String[]{"required", "isString"}, "Họ tên"),
+                sdt = new Validator(txtSdt.getText(), new String[]{"required", "isInteger"}, "Số điện thoại"),
+                email = new Validator(txtEmail.getText(), new String[]{"required", "isEmail"}, "eMail"),
+                diachi = new Validator(txtDiachi.getText(), new String[]{"required", "isString"}, "Dia Chi"),
+                songuoi = new Validator(txtSonguoi.getText(), new String[]{"required", "isInteger"}, "So Nguoi");
+        data.add(hoTen);
+        data.add(sdt);
+        data.add(email);
+        data.add(diachi);
+        data.add(songuoi);
+        for (Validator item : data) {
+            if (!item.setTextField(home)) {
+                isSuccess = false;
             }
-         
-            int ID = us.size();
-            String user = "ID0";
-            if (ID >= 10) {
-                user = "ID";
+        }
+        if (isSuccess) {
+            ArrayList<Users> ListUser = new ArrayList<>();
+            ListUser = new DAOuser().getListUsers();
+            String id = "ID0";
+            int sz = ListUser.size()+1;
+            if (ListUser.size() >= 10) {
+                id = "ID";
+            }
+            System.out.println(id+sz);
+            Users item = new Users(id + sz, txtHoten.getText(), txtSdt.getText(), txtEmail.getText(), txtDiachi.getText(), Integer.parseInt(txtSonguoi.getText()));
+            if (new DAOuser().addItem(item)) {
+                JOptionPane.showMessageDialog(this, "Thêm mới thành công!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Mã thí sinh đã tồn tại!");
             }
 
-            try {
-                db.updateData("insert into USERS values" + "('" + user + ID + "','" + HoTen + "','" + SDT + "','" + eMail + "','" + diaChi + "'," + soNguoi + ")");
-            } catch (Exception ex) {
-                Logger.getLogger(DangKyTour.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            System.out.println("insert into USERS values" + "('" + user + ID + "','" + HoTen + "','" + SDT + "','" + eMail + "','" + diaChi + "'," + soNguoi + ")");
-            System.out.println(ID);
-            System.out.println(user);
-            int a = JOptionPane.showConfirmDialog(rootPane, "Xác nhận đặt Tour", "Thông Báo", OK_OPTION);
-            if (a == OK_OPTION) {
-                try {
-                    JOptionPane.showConfirmDialog(rootPane, "Đặt Tour thành công", "Thông báo", OK_OPTION);
-
-                } catch (Exception ex) {
-                    Logger.getLogger(DangKyTour.class.getName()).log(Level.SEVERE, null, ex.toString());
-                }
-
-            }
-            //ht.show();
-            this.hide();
         }
     }//GEN-LAST:event_btnDangkyActionPerformed
 
@@ -275,6 +220,7 @@ public class DangKyTour extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(DangKyTour.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

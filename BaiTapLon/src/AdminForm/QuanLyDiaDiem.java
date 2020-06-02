@@ -5,6 +5,14 @@
  */
 package AdminForm;
 
+import Dao.DiaDiem;
+import controller.DAOdiaDiem;
+import controller.DAOuser;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import validate.Validator;
+
 /**
  *
  * @author nvta1
@@ -14,8 +22,22 @@ public class QuanLyDiaDiem extends javax.swing.JFrame {
     /**
      * Creates new form QuanLyDiaDiem
      */
+    private final String[] header = {"STT", "Mã Địa Điểm", "Tên Địa Điểm", "Mã QG"};
+    private ArrayList<DiaDiem> items = new ArrayList<>();
+    private int selectedIndex;
+    private DefaultTableModel model;
+
     public QuanLyDiaDiem() {
         initComponents();
+        model = (DefaultTableModel) tbQuanLyDiaDiem.getModel();
+        model.setColumnIdentifiers(header);
+        showTable();
+    }
+
+    public void clearText() {
+        txtMaDD.setText("");
+        txtTenDD.setText("");
+        txtMaQG.setText("");
     }
 
     /**
@@ -44,10 +66,25 @@ public class QuanLyDiaDiem extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
 
         btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
 
         btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
         btnThoai.setText("Thoát");
 
@@ -71,6 +108,11 @@ public class QuanLyDiaDiem extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbQuanLyDiaDiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbQuanLyDiaDiemMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbQuanLyDiaDiem);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -136,6 +178,64 @@ public class QuanLyDiaDiem extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        // TODO add your handling code here:
+        boolean isSuccess = true;
+        ArrayList<Validator> data = new ArrayList<>();
+        Validator maDD = new Validator(txtMaDD.getText(), new String[]{"required"}, "Ma Dia Diem"),
+                tenDD = new Validator(txtTenDD.getText(), new String[]{"required", "isString"}, "Ten Dia Diem"),
+                maQG = new Validator(txtMaQG.getText(), new String[]{"required"}, "Ma Quoc Gia");
+        data.add(maDD);
+        data.add(tenDD);
+        data.add(maQG);
+        for (Validator s : data) {
+            if (!s.setTextField(this)) {
+                isSuccess = false;
+            }
+        }
+        if (isSuccess) {
+            DiaDiem item = new DiaDiem(maDD.getText(), tenDD.getText(), maQG.getText().toUpperCase());
+            if (new DAOdiaDiem().addItem(item)) {
+                this.showTable();
+                JOptionPane.showMessageDialog(this, "Thêm mới thành công!");
+                clearText();
+            } else {
+                JOptionPane.showMessageDialog(this, "Địa Điểm đã tồn tại!");
+            }
+        }
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void tbQuanLyDiaDiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbQuanLyDiaDiemMouseClicked
+        // TODO add your handling code here:
+        int rơw = tbQuanLyDiaDiem.getSelectedRow();
+        txtMaDD.setText(model.getValueAt(rơw, 1).toString());
+        txtTenDD.setText(model.getValueAt(rơw, 2).toString());
+        txtMaQG.setText(model.getValueAt(rơw, 3).toString());
+
+    }//GEN-LAST:event_tbQuanLyDiaDiemMouseClicked
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        // TODO add your handling code here:
+        DiaDiem item = new DiaDiem(txtMaDD.getText(), txtTenDD.getText(), txtMaQG.getText());
+        if (new DAOdiaDiem().updateItem(item)) {
+            this.showTable();
+            JOptionPane.showMessageDialog(this, "Sửa mới thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Không sửa được");
+        }
+    }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+        DiaDiem item = new DiaDiem(txtMaDD.getText(), txtTenDD.getText(), txtMaQG.getText());
+        if (new DAOdiaDiem().deleteItem(item)) {
+            this.showTable();
+            JOptionPane.showMessageDialog(this, "Xóa thành công!");
+        }
+        else
+            JOptionPane.showMessageDialog(this, "Không xóa được");
+    }//GEN-LAST:event_btnXoaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -171,6 +271,16 @@ public class QuanLyDiaDiem extends javax.swing.JFrame {
         });
     }
 
+    // hien thi danh sach
+    public void showTable() {
+        items = new DAOdiaDiem().getAllDiaDiem();
+        model.setRowCount(0);
+        for (DiaDiem item : items) {
+            model.addRow(new Object[]{
+                model.getRowCount() + 1, item.getMaDiaDiem(), item.getTenDiaDiem(), item.getMaQG()
+            });
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;

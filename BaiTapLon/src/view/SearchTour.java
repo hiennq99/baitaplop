@@ -7,6 +7,8 @@ package view;
 
 import Dao.DiaDiem;
 import Dao.Tour;
+import controller.DAOdiaDiem;
+import controller.DAOtour;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -27,23 +29,23 @@ public class SearchTour extends javax.swing.JFrame {
     /**
      * Creates new form SearchTour
      */
-    private static   ArrayList<DiaDiem> listDD;
-    private static   ArrayList<DiaDiem> ListKH;
-    private static   ArrayList<Tour> listTour;
-    public DBConnector db = new DBConnector();
-    private static String query = null;
-    private static Connection con = null;
-    private static Statement st = null;
-    private static ResultSet rs = null;
-    private static final DiaDiem d = new DiaDiem();
-    private static final Tour t= new Tour();
-    
+    private ArrayList<DiaDiem> listDD = new ArrayList<>();
+    private ArrayList<DiaDiem> ListKH = new ArrayList<>();
+    private ArrayList<Tour> listTour = new ArrayList<>();
+    private ArrayList<Tour> listTourSearch = new ArrayList<>();
+
     public SearchTour() throws Exception {
-        db.establishConnection("jdbc:derby://localhost:1527/BTL", "admins", "123");
+
         initComponents();
-       
+        ListKH = new DAOdiaDiem().getListTrongNuoc();
+        listDD = new DAOdiaDiem().getListNuocNgoai();
+        listTour = new DAOtour().getListTour();
+
+        cbGia.setModel(new DefaultComboBoxModel(listTour.toArray()));
+        cbKhoihanh.setModel(new DefaultComboBoxModel(ListKH.toArray()));
+        cbDiemden.setModel(new DefaultComboBoxModel(ListKH.toArray()));
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -197,52 +199,13 @@ public class SearchTour extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public ArrayList getTrongNuoc(String query, ArrayList a) throws Exception {
-        //Lay thong tin trong nuoc
-//        query = "select * from DIADIEM where MaQG='QG01'";
-        // lấy giá tiền 
-        // rs là 1 bảng đc đổ từ db về them query
-        // tất cả các rs dều đổ về 1 arraylist để thực hiện thêm sửa xóa
-        rs = db.queryData(query);
-        while (rs.next()) {
-            DiaDiem dd = new DiaDiem();
-            dd.setMaDiaDiem(rs.getString("MaDD"));
-            dd.setTenDiaDiem(rs.getString("TenDD"));
-            dd.setMaQG(rs.getString("MaQG"));
-            a.add(dd);
-        }
-        return a;
-    }
-
-    public ArrayList layGiaTien(String query, ArrayList a) throws Exception {
-        rs = db.queryData(query);
-        while (rs.next()) {
-            Tour t = new Tour();
-            t.setGia(rs.getString("MaTour"));
-            t.setTenTour(rs.getString("TenTour"));
-            t.setNgayKH(rs.getString("NgayKH"));
-            t.setThoiLuong(rs.getInt("ThoiLuong"));
-            t.setNoiKH(rs.getString("NoiKH"));
-            t.setNoiDen(rs.getString("NoiDen"));
-            t.setGia(rs.getString("Gia"));
-            a.add(t);
-        }
-        return a;
-    }
 
     private void btnTrongnuocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrongnuocActionPerformed
         try {
-            // TODO add your handling code here:
-            ListKH = new ArrayList<>();
-            listTour = new ArrayList<>();
-            getTrongNuoc("select * from DIADIEM where MaQG='QG01'", ListKH);
-            layGiaTien("select * from Tour",listTour);
-            d.setDsKH(ListKH);
-            t.setDsTour(listTour);
-            listTour = t.getDsTour();
-            cbGia.setModel(new DefaultComboBoxModel(t.getDsTour().toArray()));
-            cbKhoihanh.setModel(new DefaultComboBoxModel(d.getDsKH().toArray()));
-            cbDiemden.setModel(new DefaultComboBoxModel(d.getDsKH().toArray()));
+            btnNuocngoai.setEnabled(false);
+            cbGia.setModel(new DefaultComboBoxModel(listTour.toArray()));
+            cbKhoihanh.setModel(new DefaultComboBoxModel(ListKH.toArray()));
+            cbDiemden.setModel(new DefaultComboBoxModel(ListKH.toArray()));
         } catch (Exception ex) {
             Logger.getLogger(SearchTour.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -253,21 +216,21 @@ public class SearchTour extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             DSTour ds = new DSTour();
-            
-            listTour = new ArrayList<>();
-            listDD = new ArrayList<>();
-            getTrongNuoc("select * from DIADIEM", listDD);
-            ds.settittle(cbKhoihanh.getSelectedItem().toString(),cbDiemden.getSelectedItem().toString());
+            ds.settittle(cbKhoihanh.getSelectedItem().toString(), cbDiemden.getSelectedItem().toString());
             ds.show();
             this.setVisible(false);
-            String a = listDD.get(cbKhoihanh.getSelectedIndex()).getMaDiaDiem();
-            String b = listDD.get(cbDiemden.getSelectedIndex()).getMaDiaDiem();
-            for(DiaDiem s : listDD)
-                System.out.println(s);
-            layGiaTien("select * from Tour where NoiKH='"+a+"' and NoiDen='"+b+"'",listTour);
-            ds.setTable(listTour);
-//        Tour t = new Tour();
-//        t.setA();
+            String a = ListKH.get(cbKhoihanh.getSelectedIndex()).getMaDiaDiem();
+            String b = null;
+            if(btnTrongnuoc.isEnabled())
+            {
+                 b = ListKH.get(cbDiemden.getSelectedIndex()).getMaDiaDiem();
+            }
+            else
+                b= listDD.get(cbDiemden.getSelectedIndex()).getMaDiaDiem();
+           
+            System.out.println(a + b);
+            listTourSearch = new DAOtour().searchTour(a,b);
+            ds.setTable(listTourSearch);
         } catch (Exception ex) {
             Logger.getLogger(SearchTour.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -275,20 +238,10 @@ public class SearchTour extends javax.swing.JFrame {
 
     private void btnNuocngoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuocngoaiActionPerformed
         try {
-            // TODO add your handling code here:
-            ListKH = new ArrayList<>();
-            listDD = new ArrayList<>();
-            listTour = new ArrayList<>();
-            listTour = new ArrayList<>();
-            getTrongNuoc("select * from DIADIEM where MaQG='QG01'", ListKH);
-            getTrongNuoc("select * from DIADIEM where MaQG='QG02'", listDD);
-            layGiaTien("select * from Tour",listTour);
-            d.setDsDD(listDD);
-            d.setDsKH(ListKH);
-            t.setDsTour(listTour);
-            cbGia.setModel(new DefaultComboBoxModel(t.getDsTour().toArray()));
-            cbKhoihanh.setModel(new DefaultComboBoxModel(d.getDsKH().toArray()));
-            cbDiemden.setModel(new DefaultComboBoxModel(d.getDsDD().toArray()));
+            btnTrongnuoc.setEnabled(false);
+            cbGia.setModel(new DefaultComboBoxModel(listTour.toArray()));
+            cbKhoihanh.setModel(new DefaultComboBoxModel(ListKH.toArray()));
+            cbDiemden.setModel(new DefaultComboBoxModel(listDD.toArray()));
         } catch (Exception ex) {
             Logger.getLogger(SearchTour.class.getName()).log(Level.SEVERE, null, ex);
         }

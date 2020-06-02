@@ -21,6 +21,7 @@ public class DSTour extends javax.swing.JFrame {
      */
     public DSTour() {
         initComponents();
+        btnDat.setEnabled(false);
     }
 
     /**
@@ -54,6 +55,16 @@ public class DSTour extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblDSchuyenbay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDSchuyenbayMouseClicked(evt);
+            }
+        });
+        tblDSchuyenbay.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tblDSchuyenbayKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblDSchuyenbay);
 
         btnDat.setText("Đặt");
@@ -153,6 +164,16 @@ public class DSTour extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnHuyActionPerformed
+
+    private void tblDSchuyenbayKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblDSchuyenbayKeyPressed
+        // TODO add your handling code here:
+        btnDat.setEnabled(true);
+    }//GEN-LAST:event_tblDSchuyenbayKeyPressed
+
+    private void tblDSchuyenbayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDSchuyenbayMouseClicked
+        // TODO add your handling code here:
+        btnDat.setEnabled(true);
+    }//GEN-LAST:event_tblDSchuyenbayMouseClicked
 
     /**
      * @param args the command line arguments
