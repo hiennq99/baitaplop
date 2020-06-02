@@ -5,17 +5,47 @@
  */
 package AdminForm;
 
+import Dao.DiaDiem;
+import Dao.Tour;
+import controller.DAOdiaDiem;
+import controller.DAOtour;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import validate.Validator;
+
 /**
  *
  * @author nvta1
  */
 public class QuanLyTour extends javax.swing.JFrame {
 
+    private final String[] header = {"STT", "Mã Tour", "Tên Tour", "Ngày Khời Hành", "Thời Lượng", "Nơi Khởi Hành", "Nơi Đến", "Giá"};
+    private ArrayList<Tour> items = new ArrayList<>();
+    private int selectedIndex;
+    private DefaultTableModel model;
+
     /**
      * Creates new form QuanLyTour
      */
     public QuanLyTour() {
         initComponents();
+        model = (DefaultTableModel) tbQuanLyTour.getModel();
+        model.setColumnIdentifiers(header);
+        showTable();
+    }
+
+    public void showTable() {
+        items = new DAOtour().getListTour();
+        model.setRowCount(0);
+        for (Tour item : items) {
+            model.addRow(new Object[]{
+                model.getRowCount() + 1, item.getMaTour(), item.getTenTour(), item.getNgayKH(), item.getThoiLuong(), item.getNoiKH(), item.getNoiDen(), item.getGia()
+            });
+        }
     }
 
     /**
@@ -48,6 +78,7 @@ public class QuanLyTour extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txtGia = new javax.swing.JTextField();
         btnThem = new javax.swing.JButton();
+        btnClear = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,11 +104,26 @@ public class QuanLyTour extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbQuanLyTour.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbQuanLyTourMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbQuanLyTour);
 
         btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
 
         btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
         btnThoai.setText("Thoát");
 
@@ -88,6 +134,18 @@ public class QuanLyTour extends javax.swing.JFrame {
         jLabel7.setText("Giá");
 
         btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
+
+        btnClear.setText("Clear");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -133,14 +191,16 @@ public class QuanLyTour extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 782, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnThem)
+                        .addComponent(btnClear)
                         .addGap(99, 99, 99)
+                        .addComponent(btnThem)
+                        .addGap(121, 121, 121)
                         .addComponent(btnSua)
-                        .addGap(102, 102, 102)
+                        .addGap(106, 106, 106)
                         .addComponent(btnXoa)
-                        .addGap(97, 97, 97)
+                        .addGap(109, 109, 109)
                         .addComponent(btnThoai)
-                        .addGap(134, 134, 134))))
+                        .addGap(50, 50, 50))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,12 +234,134 @@ public class QuanLyTour extends javax.swing.JFrame {
                     .addComponent(btnSua)
                     .addComponent(btnXoa)
                     .addComponent(btnThoai)
-                    .addComponent(btnThem))
+                    .addComponent(btnThem)
+                    .addComponent(btnClear))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    public void ClearTxt() {
+        txtMaTour.setText("");
+        txtTenTour.setText("");
+        txtNgayKH.setText("");
+        txtThoiLuong.setText("");
+        txtNoiKH.setText("");
+        txtNoiDen.setText("");
+        txtGia.setText("");
+    }
+    private void tbQuanLyTourMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbQuanLyTourMouseClicked
+        // TODO add your handling code here:
+        int row = tbQuanLyTour.getSelectedRow();
+        txtMaTour.setText(model.getValueAt(row, 1).toString());
+        txtTenTour.setText(model.getValueAt(row, 2).toString());
+        txtNgayKH.setText(model.getValueAt(row, 3).toString());
+        txtThoiLuong.setText(model.getValueAt(row, 4).toString());
+        txtNoiKH.setText(model.getValueAt(row, 5).toString());
+        txtNoiDen.setText(model.getValueAt(row, 6).toString());
+        txtGia.setText(model.getValueAt(row, 7).toString());
+
+    }//GEN-LAST:event_tbQuanLyTourMouseClicked
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        // TODO add your handling code here:
+        ClearTxt();
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        // TODO add your handling code here:
+        boolean isSuccess = true;
+       
+        ArrayList<Validator> data = new ArrayList<>();
+        Validator maTour = new Validator(txtMaTour.getText(), new String[]{"required"}, "Ma Tour"),
+                tenTour = new Validator(txtTenTour.getText(), new String[]{"required", "isString"}, "Ten Tour"),
+                ngayKH = new Validator(txtNgayKH.getText(), new String[]{"required"}, "Ngay Khoi Hanh"),
+                thoiLuong = new Validator(txtThoiLuong.getText(), new String[]{"required","isInteger"}, "Thoi Luong"),
+                noiKH = new Validator(txtNoiKH.getText(), new String[]{"required"}, "Noi Khoi Hanh"),
+                noiDen = new Validator(txtNoiDen.getText(), new String[]{"required"}, "Noi Den"),
+                gia = new Validator(txtGia.getText(), new String[]{"required","isInteger"}, "Gia");
+         try {
+            Date ngayKH1 = new SimpleDateFormat("dd/MM/yyyy").parse(txtNgayKH.getText());
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this, "Ngày sinh phải đúng định dạng dd/MM/yyyy");
+            isSuccess = false;
+        }
+        data.add(maTour);
+        data.add(tenTour);
+        data.add(ngayKH);
+        data.add(thoiLuong);
+        data.add(noiKH);
+        data.add(noiDen);
+        data.add(gia);
+        for (Validator s : data) {
+            if (!s.setTextField(this)) {
+                isSuccess = false;
+            }
+        }
+        if (isSuccess) {
+            Tour item = new Tour(maTour.getText(), tenTour.getText(),ngayKH.getText(),Integer.parseInt(thoiLuong.getText()),noiKH.getText().toUpperCase(),noiDen.getText().toUpperCase(),gia.getText());
+            if (new DAOtour().addItem(item)) {
+                this.showTable();
+                JOptionPane.showMessageDialog(this, "Thêm mới thành công!");
+                ClearTxt();
+            } else {
+                JOptionPane.showMessageDialog(this, "Thêm mới thất bại!");
+            }
+        }
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        // TODO add your handling code here:
+          boolean isSuccess = true;
+       
+        ArrayList<Validator> data = new ArrayList<>();
+        Validator maTour = new Validator(txtMaTour.getText(), new String[]{"required"}, "Ma Tour"),
+                tenTour = new Validator(txtTenTour.getText(), new String[]{"required", "isString"}, "Ten Tour"),
+                ngayKH = new Validator(txtNgayKH.getText(), new String[]{"required"}, "Ngay Khoi Hanh"),
+                thoiLuong = new Validator(txtThoiLuong.getText(), new String[]{"required","isInteger"}, "Thoi Luong"),
+                noiKH = new Validator(txtNoiKH.getText(), new String[]{"required"}, "Noi Khoi Hanh"),
+                noiDen = new Validator(txtNoiDen.getText(), new String[]{"required"}, "Noi Den"),
+                gia = new Validator(txtGia.getText().trim(), new String[]{"required","isInteger"}, "Gia");
+         try {
+            Date ngayKH1 = new SimpleDateFormat("yyyy-dd-MM").parse(txtNgayKH.getText());
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this, "Ngày sinh phải đúng định dạng yyyy-dd-MM");
+            isSuccess = false;
+        }
+        data.add(maTour);
+        data.add(tenTour);
+        data.add(ngayKH);
+        data.add(thoiLuong);
+        data.add(noiKH);
+        data.add(noiDen);
+        data.add(gia);
+        for (Validator s : data) {
+            if (!s.setTextField(this)) {
+                isSuccess = false;
+            }
+        }
+        if (isSuccess) {
+            Tour item = new Tour(maTour.getText(), tenTour.getText(),ngayKH.getText(),Integer.parseInt(thoiLuong.getText()),noiKH.getText().toUpperCase(),noiDen.getText().toUpperCase(),gia.getText());
+            if (new DAOtour().UpdateItem(item)) {
+                this.showTable();
+                JOptionPane.showMessageDialog(this, "Sửa thành công!");
+                ClearTxt();
+            } else {
+                JOptionPane.showMessageDialog(this, "Sửa Thất bại");
+            }
+        }
+    }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+          Tour item = new Tour(txtMaTour.getText(), null, null, ALLBITS, null, null, null);
+        if (new DAOtour().DeleteItem(item)) {
+            this.showTable();
+            JOptionPane.showMessageDialog(this, "Xóa thành công!");
+        }
+        else
+            JOptionPane.showMessageDialog(this, "Không xóa được");
+    }//GEN-LAST:event_btnXoaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -217,6 +399,7 @@ public class QuanLyTour extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClear;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnThoai;

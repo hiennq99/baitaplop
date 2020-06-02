@@ -82,5 +82,70 @@ public class DAOtour extends DAO {
         }
         return items;
     }
+    
+    public boolean addItem(Tour item) {
+        String sql = "INSERT INTO " + table + "(MaTour, TenTour, NgayKH, ThoiLuong, NoiKH,NoiDen,Gia) VALUES(?, ?, ?, ?, ?,?,?)";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, item.getMaTour());
+            ps.setString(2, item.getTenTour());
+            ps.setString(3, item.getNgayKH());
+            ps.setInt(4, item.getThoiLuong());
+            ps.setString(5, item.getNoiKH());
+            ps.setString(6, item.getNoiDen());
+            ps.setString(7, item.getGia());
+            int isSuccess = ps.executeUpdate();
+            ps.close();
+            conn.close();
+            return isSuccess > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+    public boolean UpdateItem(Tour item) {
+        String sql = "UPDATE " + table + " SET TenTour = ?, NgayKH = ?, ThoiLuong = ?, NoiKH = ?,NoiDen = ?,Gia = ? where MaTour = ? ";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(7, item.getMaTour());
+            ps.setString(1, item.getTenTour());
+            ps.setString(2, item.getNgayKH());
+            ps.setInt(3, item.getThoiLuong());
+            ps.setString(4, item.getNoiKH());
+            ps.setString(5, item.getNoiDen());
+            ps.setString(6, item.getGia());
+            int isSuccess = ps.executeUpdate();
+            ps.close();
+            conn.close();
+            return isSuccess > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+     public boolean DeleteItem(Tour item) {
+        String sql = "DELETE FROM " + table + " where MaTour=?";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, item.getMaTour());
+           
+            int isSuccess = ps.executeUpdate();
+            ps.close();
+            conn.close();
+            return isSuccess > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 
 }
