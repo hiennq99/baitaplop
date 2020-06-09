@@ -87,6 +87,11 @@ public class QuanLyDiaDiem extends javax.swing.JFrame {
         });
 
         btnThoai.setText("Thoát");
+        btnThoai.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnThoaiMouseClicked(evt);
+            }
+        });
 
         jlable6.setText("Mã quốc gia");
 
@@ -235,6 +240,14 @@ public class QuanLyDiaDiem extends javax.swing.JFrame {
         else
             JOptionPane.showMessageDialog(this, "Không xóa được");
     }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnThoaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThoaiMouseClicked
+        // TODO add your handling code here:
+        int click=JOptionPane.showConfirmDialog(null,"Chắc chắn thoát","Thoát?",JOptionPane.YES_NO_OPTION);
+         if (click==JOptionPane.YES_OPTION) {    
+              System.exit(1);
+         }
+    }//GEN-LAST:event_btnThoaiMouseClicked
 
     /**
      * @param args the command line arguments

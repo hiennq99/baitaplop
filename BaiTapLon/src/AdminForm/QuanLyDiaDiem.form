@@ -123,6 +123,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Tho&#xe1;t"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnThoaiMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlable6">
       <Properties>
