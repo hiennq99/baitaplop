@@ -330,16 +330,22 @@ public class QuanLyTour extends javax.swing.JFrame {
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
         boolean isSuccess = true;
-       
+
         ArrayList<Validator> data = new ArrayList<>();
         Validator maTour = new Validator(txtMaTour.getText(), new String[]{"required"}, "Mã Tour"),
                 tenTour = new Validator(txtTenTour.getText(), new String[]{"required", "isString"}, "Tên Tour"),
                 ngayKH = new Validator(txtNgayKH.getText(), new String[]{"required"}, "Ngày khởi hành"),
-                thoiLuong = new Validator(txtThoiLuong.getText(), new String[]{"required","isInteger"}, "Thời lượng"),
+                thoiLuong = new Validator(txtThoiLuong.getText(), new String[]{"required", "isInteger"}, "Thời lượng"),
                 noiKH = new Validator(txtNoiKH.getText(), new String[]{"required"}, "Nơi khởi hành"),
                 noiDen = new Validator(txtNoiDen.getText(), new String[]{"required"}, "Nơi đến"),
-                gia = new Validator(txtGia.getText(), new String[]{"required","isInteger"}, "Giá");
-         try {
+                gia = new Validator(txtGia.getText(), new String[]{"required", "isInteger"}, "Giá"),
+                LichTrinhTour = new Validator(txtLichTrinh.getText(), new String[]{"required"}, "Lịch Trình"),
+                ChiTietLichTrinh = new Validator(txtChiTietLichTrinh.getText(), new String[]{"required"}, "Lịch Trình"),
+                DichVu = new Validator(txtDichVu.getText(), new String[]{"required"}, "Lịch Trình"),
+                GioiThieuTour = new Validator(txtGioiThieuTour.getText(), new String[]{"required"}, "Lịch Trình"),
+                KhuyenMai = new Validator(txtKhuyenMai.getText(), new String[]{"required"}, "Lịch Trình");
+
+        try {
             Date ngayKH1 = new SimpleDateFormat("dd/MM/yyyy").parse(txtNgayKH.getText());
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(this, "Ngày khởi hành phải đúng định dạng dd/MM/yyyy");
@@ -352,13 +358,19 @@ public class QuanLyTour extends javax.swing.JFrame {
         data.add(noiKH);
         data.add(noiDen);
         data.add(gia);
+        data.add(LichTrinhTour);
+        data.add(ChiTietLichTrinh);
+        data.add(DichVu);
+        data.add(GioiThieuTour);
+        data.add(KhuyenMai);
+
         for (Validator s : data) {
             if (!s.setTextField(this)) {
                 isSuccess = false;
             }
         }
         if (isSuccess) {
-            Tour item = new Tour(maTour.getText(), tenTour.getText(),ngayKH.getText(),Integer.parseInt(thoiLuong.getText()),noiKH.getText().toUpperCase(),noiDen.getText().toUpperCase(),gia.getText());
+            Tour item = new Tour(maTour.getText(), tenTour.getText(), ngayKH.getText(), Integer.parseInt(thoiLuong.getText()), noiKH.getText().toUpperCase(), noiDen.getText().toUpperCase(), gia.getText(),LichTrinhTour.getText());
             if (new DAOtour().addItem(item)) {
                 this.showTable();
                 JOptionPane.showMessageDialog(this, "Thêm mới thành công!");
@@ -371,17 +383,17 @@ public class QuanLyTour extends javax.swing.JFrame {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-          boolean isSuccess = true;
-       
+        boolean isSuccess = true;
+
         ArrayList<Validator> data = new ArrayList<>();
         Validator maTour = new Validator(txtMaTour.getText(), new String[]{"required"}, "Mã Tour"),
                 tenTour = new Validator(txtTenTour.getText(), new String[]{"required", "isString"}, "Tên Tour"),
                 ngayKH = new Validator(txtNgayKH.getText(), new String[]{"required"}, "Ngày khởi hành"),
-                thoiLuong = new Validator(txtThoiLuong.getText(), new String[]{"required","isInteger"}, "Thời lượng"),
+                thoiLuong = new Validator(txtThoiLuong.getText(), new String[]{"required", "isInteger"}, "Thời lượng"),
                 noiKH = new Validator(txtNoiKH.getText(), new String[]{"required"}, "Nơi khởi hành"),
                 noiDen = new Validator(txtNoiDen.getText(), new String[]{"required"}, "Nơi đến"),
-                gia = new Validator(txtGia.getText().trim(), new String[]{"required","isInteger"}, "Giá");
-         try {
+                gia = new Validator(txtGia.getText().trim(), new String[]{"required", "isInteger"}, "Giá");
+        try {
             Date ngayKH1 = new SimpleDateFormat("yyyy-dd-MM").parse(txtNgayKH.getText());
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(this, "Ngày khởi hành phải đúng định dạng yyyy-dd-MM");
@@ -400,7 +412,7 @@ public class QuanLyTour extends javax.swing.JFrame {
             }
         }
         if (isSuccess) {
-            Tour item = new Tour(maTour.getText(), tenTour.getText(),ngayKH.getText(),Integer.parseInt(thoiLuong.getText()),noiKH.getText().toUpperCase(),noiDen.getText().toUpperCase(),gia.getText());
+            Tour item = new Tour(maTour.getText(), tenTour.getText(), ngayKH.getText(), Integer.parseInt(thoiLuong.getText()), noiKH.getText().toUpperCase(), noiDen.getText().toUpperCase(), gia.getText());
             if (new DAOtour().UpdateItem(item)) {
                 this.showTable();
                 JOptionPane.showMessageDialog(this, "Sửa thành công!");
@@ -413,14 +425,14 @@ public class QuanLyTour extends javax.swing.JFrame {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
-          Tour item = new Tour(txtMaTour.getText(), null, null, ALLBITS, null, null, null);
+        Tour item = new Tour(txtMaTour.getText(), null, null, ALLBITS, null, null, null);
         if (new DAOtour().DeleteItem(item)) {
             this.showTable();
             JOptionPane.showMessageDialog(this, "Xóa thành công!");
             ClearText();
-        }
-        else
+        } else {
             JOptionPane.showMessageDialog(this, "Không xóa được");
+        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnThoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoaiActionPerformed
