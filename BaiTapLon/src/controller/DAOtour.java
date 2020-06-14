@@ -42,6 +42,11 @@ public class DAOtour extends DAO {
                 t.setNoiKH(rs.getString("NoiKH"));
                 t.setNoiDen(rs.getString("NoiDen"));
                 t.setGia(rs.getString("Gia"));
+                t.setLichTrinhTour(rs.getString("LichTrinhTour"));
+                t.setChiTietLichTrinh(rs.getString("ChiTietLichTrinh"));
+                t.setDichVu(rs.getString("DichVu"));
+                t.setGioiThieuTour(rs.getString("GioiThieuTour"));
+                t.setKhuyenMai(rs.getString("KhuyenMai"));
                 items.add(t);
             }
             rs.close();
@@ -72,6 +77,11 @@ public class DAOtour extends DAO {
                 t.setNoiKH(rs.getString("NoiKH"));
                 t.setNoiDen(rs.getString("NoiDen"));
                 t.setGia(rs.getString("Gia"));
+                t.setLichTrinhTour(rs.getString("LichTrinhTour"));
+                t.setChiTietLichTrinh(rs.getString("ChiTietLichTrinh"));
+                t.setDichVu(rs.getString("DichVu"));
+                t.setGioiThieuTour(rs.getString("GioiThieuTour"));
+                t.setKhuyenMai(rs.getString("KhuyenMai"));
                 items.add(t);
             }
             rs.close();
@@ -82,9 +92,9 @@ public class DAOtour extends DAO {
         }
         return items;
     }
-    
+
     public boolean addItem(Tour item) {
-        String sql = "INSERT INTO " + table + "(MaTour, TenTour, NgayKH, ThoiLuong, NoiKH,NoiDen,Gia) VALUES(?, ?, ?, ?, ?,?,?)";
+        String sql = "INSERT INTO " + table + "(MaTour, TenTour, NgayKH, ThoiLuong, NoiKH, NoiDen, Gia, LichTrinhTour, ChiTietLichTrinh, DichVu, GioiThieuTour, KhuyenMai) VALUES(?, ?, ?, ?, ?,?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -96,6 +106,12 @@ public class DAOtour extends DAO {
             ps.setString(5, item.getNoiKH());
             ps.setString(6, item.getNoiDen());
             ps.setString(7, item.getGia());
+            ps.setString(8, item.getLichTrinhTour());
+            ps.setString(9, item.getLichTrinhTour());
+            ps.setString(10, item.getLichTrinhTour());
+            ps.setString(11, item.getLichTrinhTour());
+            ps.setString(12, item.getLichTrinhTour());
+
             int isSuccess = ps.executeUpdate();
             ps.close();
             conn.close();
@@ -106,19 +122,30 @@ public class DAOtour extends DAO {
 
         return false;
     }
+
     public boolean UpdateItem(Tour item) {
-        String sql = "UPDATE " + table + " SET TenTour = ?, NgayKH = ?, ThoiLuong = ?, NoiKH = ?,NoiDen = ?,Gia = ? where MaTour = ? ";
+        String sql = "UPDATE " + table + " SET TenTour = ?, NgayKH = ?"
+                + ", ThoiLuong = ?, NoiKH = ?,NoiDen = ?,Gia = ? "
+                + ", LichTrinhTour = ? , ChiTietLichTrinh = ?"
+                + " , DichVu = ? , GioiThieuTour = ? , "
+                + "KhuyenMai = ?   where MaTour = ? ";
 
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
 
-            ps.setString(7, item.getMaTour());
+            ps.setString(12, item.getMaTour());
             ps.setString(1, item.getTenTour());
             ps.setString(2, item.getNgayKH());
             ps.setInt(3, item.getThoiLuong());
             ps.setString(4, item.getNoiKH());
             ps.setString(5, item.getNoiDen());
             ps.setString(6, item.getGia());
+            ps.setString(7, item.getLichTrinhTour());
+            ps.setString(8, item.getChiTietLichTrinh());
+            ps.setString(9, item.getDichVu());
+            ps.setString(10, item.getGioiThieuTour());
+            ps.setString(11, item.getKhuyenMai());
+
             int isSuccess = ps.executeUpdate();
             ps.close();
             conn.close();
@@ -129,14 +156,15 @@ public class DAOtour extends DAO {
 
         return false;
     }
-     public boolean DeleteItem(Tour item) {
+
+    public boolean DeleteItem(Tour item) {
         String sql = "DELETE FROM " + table + " where MaTour=?";
 
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setString(1, item.getMaTour());
-           
+
             int isSuccess = ps.executeUpdate();
             ps.close();
             conn.close();

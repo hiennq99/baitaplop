@@ -12,7 +12,7 @@ go
 
 create table USERS
 (
-	IDuser char(4) PRIMARY KEY,
+	IDuser char(10) PRIMARY KEY,
 	HoTen varchar(30) not null,
 	SoDT varchar(10),
 	Email varchar(30),
@@ -23,43 +23,60 @@ GO
 
 create table QUOCGIA
 (
-	MaQG char(4) PRIMARY KEY,
+	MaQG char(10) PRIMARY KEY,
 	TenQG varchar(20)
 )
 GO
 
 create table DIADIEM
 (
-	MaDD char(4) PRIMARY KEY,
+	MaDD char(10) PRIMARY KEY,
 	TenDD varchar(20),
-	MaQG char(4),
+	MaQG char(10),
 	CONSTRAINT fk_DIADIEM_MAQG FOREIGN KEY (MaQG) REFERENCES QUOCGIA(MaQG)
 )
 GO
-
+create table KhuyenMai
+ (
+	MaKhuyenMai char(10) primary key,
+	TenKhuyenMai char(100),
+	GiaTriKM int,
+	NgayBD char(20),
+	NgayKT char(20)
+ )
+ go
 create table TOUR
 (
 	MaTour char(10) PRIMARY KEY,
 	TenTour varchar(30),
 	NgayKH date,
 	ThoiLuong int,
-	NoiKH char(4),
-	NoiDen char(4),
+	NoiKH char(10),
+	NoiDen char(10),
 	Gia char(15),
+	LichTrinhTour varchar(500),
+	ChiTietLichTrinh varchar(1000),
+	DichVu varchar(500),
+	GioiThieuTour varchar(500),
+	MaKhuyenMai varchar(200),
 	CONSTRAINT fk_TOUR_KH FOREIGN KEY (NoiKH) REFERENCES DIADIEM(MaDD),
-	CONSTRAINT fk_TOUR_DD FOREIGN KEY (NoiDen) REFERENCES DIADIEM(MaDD)
+	CONSTRAINT fk_TOUR_DD FOREIGN KEY (NoiDen) REFERENCES DIADIEM(MaDD),
+	CONSTRAINT fk_TOUR_KM FOREIGN KEY (MaKhuyenMai) REFERENCES KhuyenMai(MaKhuyenMai)
+
 
 )
 go
 create table VE
 (
-	IDve char(4) PRIMARY KEY,
-	IDuser char(4),
+	IDve char(10) PRIMARY KEY,
+	IDuser char(10),
 	MaTour char(10),
 	TenVe varchar(30),
 	CONSTRAINT fk_VE_IDuser FOREIGN KEY(IDuser) REFERENCES USERS(IDuser),
 	CONSTRAINT fk_VE_MaTour FOREIGN KEY(MaTour) REFERENCES TOUR(MaTour)
 )
+go
+ 
 
 -- INSERT DU LIEU
 
