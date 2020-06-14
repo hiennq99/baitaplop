@@ -12,7 +12,7 @@ package Dao;
 public class Users {
     private String MaUsers;    
     private String HoTen;
-    private String SoDR;
+    private String SoDT;
     private String Email;
     private String DiaChi;
     private int soNguoi;
@@ -20,10 +20,10 @@ public class Users {
     public Users() {
     }
 
-    public Users(String MaUsers, String HoTen, String SoDR, String Email, String DiaChi, int soNguoi) {
+    public Users(String MaUsers, String HoTen, String SoDT, String Email, String DiaChi, int soNguoi) {
         this.MaUsers = MaUsers;
         this.HoTen = HoTen;
-        this.SoDR = SoDR;
+        this.SoDT = SoDT;
         this.Email = Email;
         this.DiaChi = DiaChi;
         this.soNguoi = soNguoi;
@@ -46,12 +46,12 @@ public class Users {
         this.HoTen = HoTen;
     }
 
-    public String getSoDR() {
-        return SoDR;
+    public String getSoDT() {
+        return SoDT;
     }
 
-    public void setSoDR(String SoDR) {
-        this.SoDR = SoDR;
+    public void setSoDT(String SoDT) {
+        this.SoDT = SoDT;
     }
 
     public String getEmail() {
@@ -80,7 +80,7 @@ public class Users {
 
     @Override
     public String toString() {
-        return "Users{" + "MaUsers=" + MaUsers + ", HoTen=" + HoTen + ", SoDR=" + SoDR + ", Email=" + Email + ", DiaChi=" + DiaChi + ", soNguoi=" + soNguoi + '}';
+        return "Users{" + "MaUsers=" + MaUsers + ", HoTen=" + HoTen + ", SoDR=" + SoDT + ", Email=" + Email + ", DiaChi=" + DiaChi + ", soNguoi=" + soNguoi + '}';
     }
 
 }

@@ -23,9 +23,10 @@ public class XacNhanThongTin extends javax.swing.JFrame {
         lbSoNguoi.setText(SoN);
     }
 
-    public void setTour(String NoiDen, String MaTour) {
+    public void setTour(String NoiDen, String MaTour , String maVe) {
         lbNoiDen.setText(NoiDen);
         lbMaTour.setText(MaTour);
+        lbMave.setText(maVe);
     }
 
     public XacNhanThongTin() {
@@ -59,6 +60,8 @@ public class XacNhanThongTin extends javax.swing.JFrame {
         lbNoiDen = new javax.swing.JLabel();
         lbMaTour = new javax.swing.JLabel();
         btnOK = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        lbMave = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -104,6 +107,10 @@ public class XacNhanThongTin extends javax.swing.JFrame {
             }
         });
 
+        jLabel10.setText("Mã vé");
+
+        lbMave.setText("jLabel10");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -144,11 +151,14 @@ public class XacNhanThongTin extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel3)
-                                    .addComponent(jLabel2))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGap(71, 71, 71)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lbMaKH)
-                                    .addComponent(lbTenKH, javax.swing.GroupLayout.Alignment.TRAILING)))))
+                                    .addComponent(lbTenKH, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lbMave)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(179, 179, 179)
                         .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -159,7 +169,11 @@ public class XacNhanThongTin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(4, 4, 4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(lbMave))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(lbMaKH))
@@ -242,6 +256,7 @@ public class XacNhanThongTin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOK;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -254,6 +269,7 @@ public class XacNhanThongTin extends javax.swing.JFrame {
     private javax.swing.JLabel lbEmail;
     private javax.swing.JLabel lbMaKH;
     private javax.swing.JLabel lbMaTour;
+    private javax.swing.JLabel lbMave;
     private javax.swing.JLabel lbNoiDen;
     private javax.swing.JLabel lbSDT;
     private javax.swing.JLabel lbSoNguoi;

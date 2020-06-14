@@ -126,6 +126,11 @@ public class QuanLyTour extends javax.swing.JFrame {
         });
 
         btnThoai.setText("Thoát");
+        btnThoai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThoaiActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Thời lượng");
 
@@ -159,48 +164,46 @@ public class QuanLyTour extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(52, 52, 52)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel7))
-                        .addGap(23, 23, 23)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtMaTour, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTenTour, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                            .addComponent(txtGia))
-                        .addGap(52, 52, 52)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtThoiLuong, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
-                            .addComponent(txtNgayKH))
-                        .addGap(36, 36, 36)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlable6)
-                            .addComponent(jLabel6))
-                        .addGap(21, 21, 21)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNoiDen, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNoiKH, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel7))
+                                .addGap(23, 23, 23)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtTenTour, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                                    .addComponent(txtGia)
+                                    .addComponent(txtMaTour))
+                                .addGap(52, 52, 52)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel4))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtThoiLuong, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                                    .addComponent(txtNgayKH))
+                                .addGap(36, 36, 36)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jlable6)
+                                    .addComponent(jLabel6))
+                                .addGap(21, 21, 21)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtNoiKH, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                                    .addComponent(txtNoiDen)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 782, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(39, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(46, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 782, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnClear)
-                        .addGap(99, 99, 99)
-                        .addComponent(btnThem)
-                        .addGap(121, 121, 121)
-                        .addComponent(btnSua)
-                        .addGap(106, 106, 106)
-                        .addComponent(btnXoa)
-                        .addGap(109, 109, 109)
-                        .addComponent(btnThoai)
-                        .addGap(50, 50, 50))))
+                .addContainerGap(109, Short.MAX_VALUE)
+                .addComponent(btnClear)
+                .addGap(99, 99, 99)
+                .addComponent(btnThem)
+                .addGap(121, 121, 121)
+                .addComponent(btnSua)
+                .addGap(106, 106, 106)
+                .addComponent(btnXoa)
+                .addGap(109, 109, 109)
+                .addComponent(btnThoai)
+                .addGap(50, 50, 50))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,9 +230,9 @@ public class QuanLyTour extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txtGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                .addGap(33, 33, 33)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSua)
                     .addComponent(btnXoa)
@@ -241,7 +244,7 @@ public class QuanLyTour extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public void ClearTxt() {
+    public void ClearText() {
         txtMaTour.setText("");
         txtTenTour.setText("");
         txtNgayKH.setText("");
@@ -265,7 +268,7 @@ public class QuanLyTour extends javax.swing.JFrame {
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
-        ClearTxt();
+        ClearText();
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
@@ -273,17 +276,17 @@ public class QuanLyTour extends javax.swing.JFrame {
         boolean isSuccess = true;
        
         ArrayList<Validator> data = new ArrayList<>();
-        Validator maTour = new Validator(txtMaTour.getText(), new String[]{"required"}, "Ma Tour"),
-                tenTour = new Validator(txtTenTour.getText(), new String[]{"required", "isString"}, "Ten Tour"),
-                ngayKH = new Validator(txtNgayKH.getText(), new String[]{"required"}, "Ngay Khoi Hanh"),
-                thoiLuong = new Validator(txtThoiLuong.getText(), new String[]{"required","isInteger"}, "Thoi Luong"),
-                noiKH = new Validator(txtNoiKH.getText(), new String[]{"required"}, "Noi Khoi Hanh"),
-                noiDen = new Validator(txtNoiDen.getText(), new String[]{"required"}, "Noi Den"),
-                gia = new Validator(txtGia.getText(), new String[]{"required","isInteger"}, "Gia");
+        Validator maTour = new Validator(txtMaTour.getText(), new String[]{"required"}, "Mã Tour"),
+                tenTour = new Validator(txtTenTour.getText(), new String[]{"required", "isString"}, "Tên Tour"),
+                ngayKH = new Validator(txtNgayKH.getText(), new String[]{"required"}, "Ngày khởi hành"),
+                thoiLuong = new Validator(txtThoiLuong.getText(), new String[]{"required","isInteger"}, "Thời lượng"),
+                noiKH = new Validator(txtNoiKH.getText(), new String[]{"required"}, "Nơi khởi hành"),
+                noiDen = new Validator(txtNoiDen.getText(), new String[]{"required"}, "Nơi đến"),
+                gia = new Validator(txtGia.getText(), new String[]{"required","isInteger"}, "Giá");
          try {
             Date ngayKH1 = new SimpleDateFormat("dd/MM/yyyy").parse(txtNgayKH.getText());
         } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(this, "Ngày sinh phải đúng định dạng dd/MM/yyyy");
+            JOptionPane.showMessageDialog(this, "Ngày khởi hành phải đúng định dạng dd/MM/yyyy");
             isSuccess = false;
         }
         data.add(maTour);
@@ -303,7 +306,7 @@ public class QuanLyTour extends javax.swing.JFrame {
             if (new DAOtour().addItem(item)) {
                 this.showTable();
                 JOptionPane.showMessageDialog(this, "Thêm mới thành công!");
-                ClearTxt();
+                ClearText();
             } else {
                 JOptionPane.showMessageDialog(this, "Thêm mới thất bại!");
             }
@@ -315,17 +318,17 @@ public class QuanLyTour extends javax.swing.JFrame {
           boolean isSuccess = true;
        
         ArrayList<Validator> data = new ArrayList<>();
-        Validator maTour = new Validator(txtMaTour.getText(), new String[]{"required"}, "Ma Tour"),
-                tenTour = new Validator(txtTenTour.getText(), new String[]{"required", "isString"}, "Ten Tour"),
-                ngayKH = new Validator(txtNgayKH.getText(), new String[]{"required"}, "Ngay Khoi Hanh"),
-                thoiLuong = new Validator(txtThoiLuong.getText(), new String[]{"required","isInteger"}, "Thoi Luong"),
-                noiKH = new Validator(txtNoiKH.getText(), new String[]{"required"}, "Noi Khoi Hanh"),
-                noiDen = new Validator(txtNoiDen.getText(), new String[]{"required"}, "Noi Den"),
-                gia = new Validator(txtGia.getText().trim(), new String[]{"required","isInteger"}, "Gia");
+        Validator maTour = new Validator(txtMaTour.getText(), new String[]{"required"}, "Mã Tour"),
+                tenTour = new Validator(txtTenTour.getText(), new String[]{"required", "isString"}, "Tên Tour"),
+                ngayKH = new Validator(txtNgayKH.getText(), new String[]{"required"}, "Ngày khởi hành"),
+                thoiLuong = new Validator(txtThoiLuong.getText(), new String[]{"required","isInteger"}, "Thời lượng"),
+                noiKH = new Validator(txtNoiKH.getText(), new String[]{"required"}, "Nơi khởi hành"),
+                noiDen = new Validator(txtNoiDen.getText(), new String[]{"required"}, "Nơi đến"),
+                gia = new Validator(txtGia.getText().trim(), new String[]{"required","isInteger"}, "Giá");
          try {
             Date ngayKH1 = new SimpleDateFormat("yyyy-dd-MM").parse(txtNgayKH.getText());
         } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(this, "Ngày sinh phải đúng định dạng yyyy-dd-MM");
+            JOptionPane.showMessageDialog(this, "Ngày khởi hành phải đúng định dạng yyyy-dd-MM");
             isSuccess = false;
         }
         data.add(maTour);
@@ -345,7 +348,7 @@ public class QuanLyTour extends javax.swing.JFrame {
             if (new DAOtour().UpdateItem(item)) {
                 this.showTable();
                 JOptionPane.showMessageDialog(this, "Sửa thành công!");
-                ClearTxt();
+                ClearText();
             } else {
                 JOptionPane.showMessageDialog(this, "Sửa Thất bại");
             }
@@ -358,10 +361,18 @@ public class QuanLyTour extends javax.swing.JFrame {
         if (new DAOtour().DeleteItem(item)) {
             this.showTable();
             JOptionPane.showMessageDialog(this, "Xóa thành công!");
+            ClearText();
         }
         else
             JOptionPane.showMessageDialog(this, "Không xóa được");
     }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnThoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoaiActionPerformed
+        // TODO add your handling code here:
+        MenuQuanLy a = new MenuQuanLy();
+        a.show();
+        this.dispose();
+    }//GEN-LAST:event_btnThoaiActionPerformed
 
     /**
      * @param args the command line arguments

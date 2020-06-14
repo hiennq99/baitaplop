@@ -3,9 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AdminForm;
+package view;
 
+import AdminForm.MenuQuanLy;
+import java.awt.event.KeyEvent;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -39,6 +43,14 @@ public class DangNhap extends javax.swing.JFrame {
         btnThoat = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                formKeyTyped(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Đăng Nhập");
@@ -58,6 +70,11 @@ public class DangNhap extends javax.swing.JFrame {
         passMatKhau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passMatKhauActionPerformed(evt);
+            }
+        });
+        passMatKhau.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passMatKhauKeyPressed(evt);
             }
         });
 
@@ -106,7 +123,7 @@ public class DangNhap extends javax.swing.JFrame {
                         .addComponent(btnDangNhap)
                         .addGap(54, 54, 54)
                         .addComponent(btnThoat)))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,7 +138,7 @@ public class DangNhap extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(passMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDangNhap)
                     .addComponent(btnThoat))
@@ -141,44 +158,84 @@ public class DangNhap extends javax.swing.JFrame {
 
     private void btnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatActionPerformed
         // TODO add your handling code here:
-        int click=JOptionPane.showConfirmDialog(null,"Chắc chắn thoát","Thoát?",JOptionPane.YES_NO_OPTION);
-        if (click==JOptionPane.YES_OPTION) {
+        int click = JOptionPane.showConfirmDialog(null, "Chắc chắn thoát", "Thoát?", JOptionPane.YES_NO_OPTION);
+        if (click == JOptionPane.YES_OPTION) {
             System.exit(1);
         }
     }//GEN-LAST:event_btnThoatActionPerformed
 
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     private void btnDangNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangNhapMouseClicked
         // TODO add your handling code here:
-        
+
         char[] input = passMatKhau.getPassword();
-        if (isPasswordCorrect(input) && txtTaiKhoan.getText().equals("admin")) {
-            new DangNhap().setVisible(false);
-            new MenuQuanLy().setVisible(true);
+        if (txtTaiKhoan.getText().equals("admin")) {
+            if (isPasswordCorrect(input)) {
+                new DangNhap().setVisible(false);
+                new MenuQuanLy().setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null,
+                        "Kiểm tra lại mật khẩu hoặc tài khoản!",
+                        "Lỗi",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         } else {
-            JOptionPane.showMessageDialog(null,
-                "Kiểm tra lại mật khẩu hoặc tài khoản!",
-                "Lỗi",
-                JOptionPane.ERROR_MESSAGE);
+            try {
+                SearchTour a = new SearchTour();
+                a.show();
+                this.dispose();
+            } catch (Exception ex) {
+            }
         }
     }//GEN-LAST:event_btnDangNhapMouseClicked
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+                SearchTour a = new SearchTour();
+                a.show();
+                this.dispose();
+            } catch (Exception ex) {
+                Logger.getLogger(DangNhap.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_formKeyPressed
+
+    private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
+                // TODO add your handling code here:
+            
+    }//GEN-LAST:event_formKeyTyped
+
+    private void passMatKhauKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passMatKhauKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+                SearchTour a = new SearchTour();
+                a.show();
+                this.dispose();
+            } catch (Exception ex) {
+                Logger.getLogger(DangNhap.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_passMatKhauKeyPressed
     // Hàm kiểm tra mật khẩu
     private boolean isPasswordCorrect(char[] input) {
-    boolean isCorrect = true;
-    char[] correctPassword = { '1', '2', '3', '4', '5', '6' };
+        boolean isCorrect = true;
+        char[] correctPassword = {'1', '2', '3', '4', '5', '6'};
 
-    if (input.length != correctPassword.length) {
-        isCorrect = false;
-    } else {
-        isCorrect = Arrays.equals (input, correctPassword);
+        if (input.length != correctPassword.length) {
+            isCorrect = false;
+        } else {
+            isCorrect = Arrays.equals(input, correctPassword);
+        }
+        return isCorrect;
     }
-    return isCorrect;
-    }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -204,6 +261,8 @@ public class DangNhap extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(DangNhap.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

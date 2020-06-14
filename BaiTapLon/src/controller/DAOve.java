@@ -18,33 +18,88 @@ import java.util.logging.Logger;
  *
  * @author quang
  */
-public class DAOve extends DAO{
-    public DAOve()
-    {
+public class DAOve extends DAO {
+
+    public DAOve() {
         super();
     }
-    private String table="Ve";
-     public ArrayList<Ve> getListVe() {
+    private String table = "VE";
+
+    public ArrayList<Ve> getListVe() {
         ArrayList<Ve> items = new ArrayList<>();
-        String sql = "select * from" + table;
+        String sql = "select * from " + table;
         PreparedStatement ps;
         try {
             ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Ve dd = new Ve();
-//                dd.setMaUsers(rs.getString("IDuser"));
-//                dd.setHoTen(rs.getString("HoTen"));
-//                dd.setSoDR(rs.getString("SoDT"));
-//                dd.setEmail(rs.getString("Email"));
-//                dd.setDiaChi(rs.getString("DiaChi"));
-//                dd.setSoNguoi(rs.getInt("SoNguoi"));
-                items.add(dd);
+                Ve v = new Ve();
+                v.setIDve(rs.getString("IDve"));
+                v.setIDuser(rs.getString("IDUser"));
+                v.setMaTour(rs.getString("MaTour"));
+                v.setTenVe(rs.getString("TenVe"));
+                items.add(v);
             }
+            rs.close();
+            ps.close();
+            conn.close();
         } catch (SQLException ex) {
-            Logger.getLogger(DAOdiaDiem.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOve.class.getName()).log(Level.SEVERE, null, ex);
         }
         return items;
     }
-    
+
+    public boolean addItem(Ve item) {
+        String sql = "INSERT INTO " + table + "(IDve,IDuser,MaTour,TenVe) VALUES(?,?,?,?)";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, item.getIDve());
+            ps.setString(2, item.getIDuser());
+            ps.setString(3, item.getMaTour());
+            ps.setString(4, item.getTenVe());
+
+            int isSuccess = ps.executeUpdate();
+            ps.close();
+            conn.close();
+            return isSuccess > 0;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOve.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public boolean updateItem(Ve item) {
+        String sql = "UPDATE " + table + "SET IDuser = ?, MaTour = ?, TenVe = ? WHERE IDve = ?";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, item.getIDuser());
+            ps.setString(2, item.getMaTour());
+            ps.setString(3, item.getTenVe());
+            ps.setString(4, item.getIDve());
+            int isSuccess = ps.executeUpdate();
+            ps.close();
+            conn.close();
+            return isSuccess > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOve.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    public boolean deleteItem(Ve item) {
+        String sql = "DELETE FROM " + table + "WHERE IDve = ?";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, item.getIDve());
+            int isSuccess = ps.executeUpdate();
+            ps.close();
+            conn.close();
+            return isSuccess > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOve.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 }

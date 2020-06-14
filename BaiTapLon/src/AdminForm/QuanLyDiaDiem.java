@@ -87,9 +87,9 @@ public class QuanLyDiaDiem extends javax.swing.JFrame {
         });
 
         btnThoai.setText("Thoát");
-        btnThoai.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnThoaiMouseClicked(evt);
+        btnThoai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThoaiActionPerformed(evt);
             }
         });
 
@@ -187,9 +187,9 @@ public class QuanLyDiaDiem extends javax.swing.JFrame {
         // TODO add your handling code here:
         boolean isSuccess = true;
         ArrayList<Validator> data = new ArrayList<>();
-        Validator maDD = new Validator(txtMaDD.getText(), new String[]{"required"}, "Ma Dia Diem"),
-                tenDD = new Validator(txtTenDD.getText(), new String[]{"required", "isString"}, "Ten Dia Diem"),
-                maQG = new Validator(txtMaQG.getText(), new String[]{"required"}, "Ma Quoc Gia");
+        Validator maDD = new Validator(txtMaDD.getText(), new String[]{"required"}, "Mã địa điểm"),
+                tenDD = new Validator(txtTenDD.getText(), new String[]{"required", "isString"}, "Tên địa điểm"),
+                maQG = new Validator(txtMaQG.getText(), new String[]{"required"}, "Mã quốc gia");
         data.add(maDD);
         data.add(tenDD);
         data.add(maQG);
@@ -221,12 +221,28 @@ public class QuanLyDiaDiem extends javax.swing.JFrame {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        DiaDiem item = new DiaDiem(txtMaDD.getText(), txtTenDD.getText(), txtMaQG.getText());
-        if (new DAOdiaDiem().updateItem(item)) {
-            this.showTable();
-            JOptionPane.showMessageDialog(this, "Sửa mới thành công!");
-        } else {
-            JOptionPane.showMessageDialog(this, "Không sửa được");
+        boolean isSuccess = true;
+        ArrayList<Validator> data = new ArrayList<>();
+        Validator maDD = new Validator(txtMaDD.getText(), new String[]{"required"}, "Mã địa điểm"),
+                tenDD = new Validator(txtTenDD.getText(), new String[]{"required", "isString"}, "Tên địa điểm"),
+                maQG = new Validator(txtMaQG.getText(), new String[]{"required"}, "Mã quốc gia");
+        data.add(maDD);
+        data.add(tenDD);
+        data.add(maQG);
+        for (Validator s : data) {
+            if (!s.setTextField(this)) {
+                isSuccess = false;
+            }
+        }
+        if (isSuccess) {
+            DiaDiem item = new DiaDiem(txtMaDD.getText(), txtTenDD.getText(), txtMaQG.getText());
+            if (new DAOdiaDiem().updateItem(item)) {
+                this.showTable();
+                JOptionPane.showMessageDialog(this, "Sửa mới thành công!");
+                clearText();
+            } else {
+                JOptionPane.showMessageDialog(this, "Không sửa được");
+            }
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
@@ -236,18 +252,18 @@ public class QuanLyDiaDiem extends javax.swing.JFrame {
         if (new DAOdiaDiem().deleteItem(item)) {
             this.showTable();
             JOptionPane.showMessageDialog(this, "Xóa thành công!");
-        }
-        else
+            clearText();
+        } else {
             JOptionPane.showMessageDialog(this, "Không xóa được");
+        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
-    private void btnThoaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThoaiMouseClicked
+    private void btnThoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoaiActionPerformed
         // TODO add your handling code here:
-        int click=JOptionPane.showConfirmDialog(null,"Chắc chắn thoát","Thoát?",JOptionPane.YES_NO_OPTION);
-         if (click==JOptionPane.YES_OPTION) {    
-              System.exit(1);
-         }
-    }//GEN-LAST:event_btnThoaiMouseClicked
+        MenuQuanLy a= new MenuQuanLy();
+        a.show();
+        this.dispose();
+    }//GEN-LAST:event_btnThoaiActionPerformed
 
     /**
      * @param args the command line arguments

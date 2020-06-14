@@ -5,8 +5,6 @@
  */
 package AdminForm;
 
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author nvta1
@@ -34,7 +32,6 @@ public class MenuQuanLy extends javax.swing.JFrame {
         btnQuanLyDD = new javax.swing.JButton();
         btnQuanLyVe = new javax.swing.JButton();
         btnQuanLyTour = new javax.swing.JButton();
-        btnThoat = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,41 +40,33 @@ public class MenuQuanLy extends javax.swing.JFrame {
 
         btnQuanLyUser.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnQuanLyUser.setText("Quản lý user");
-        btnQuanLyUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnQuanLyUserMouseClicked(evt);
+        btnQuanLyUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuanLyUserActionPerformed(evt);
             }
         });
 
         btnQuanLyDD.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnQuanLyDD.setText("Quản lý địa điểm");
-        btnQuanLyDD.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnQuanLyDDMouseClicked(evt);
+        btnQuanLyDD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuanLyDDActionPerformed(evt);
             }
         });
 
         btnQuanLyVe.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnQuanLyVe.setText("Quản lý vé");
-        btnQuanLyVe.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnQuanLyVeMouseClicked(evt);
+        btnQuanLyVe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuanLyVeActionPerformed(evt);
             }
         });
 
         btnQuanLyTour.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnQuanLyTour.setText("Quản lý tour");
-        btnQuanLyTour.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnQuanLyTourMouseClicked(evt);
-            }
-        });
-
-        btnThoat.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btnThoat.setText("Thoát");
-        btnThoat.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnThoatMouseClicked(evt);
+        btnQuanLyTour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuanLyTourActionPerformed(evt);
             }
         });
 
@@ -91,19 +80,15 @@ public class MenuQuanLy extends javax.swing.JFrame {
                         .addGap(253, 253, 253)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(172, 172, 172)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnQuanLyUser)
-                            .addComponent(btnQuanLyVe))
+                        .addGap(138, 138, 138)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnQuanLyUser, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+                            .addComponent(btnQuanLyVe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(141, 141, 141)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnQuanLyTour)
-                            .addComponent(btnQuanLyDD))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnQuanLyDD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnQuanLyTour, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(106, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnThoat)
-                .addGap(308, 308, 308))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,45 +103,39 @@ public class MenuQuanLy extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnQuanLyVe)
                     .addComponent(btnQuanLyTour))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                .addComponent(btnThoat)
-                .addContainerGap())
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnQuanLyTourMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyTourMouseClicked
+    private void btnQuanLyUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuanLyUserActionPerformed
         // TODO add your handling code here:
-        new MenuQuanLy().setVisible(false);
-        new QuanLyTour().setVisible(true);
-    }//GEN-LAST:event_btnQuanLyTourMouseClicked
+        QuanLyUser a = new QuanLyUser();
+        a.show();
+        this.dispose();
+    }//GEN-LAST:event_btnQuanLyUserActionPerformed
 
-    private void btnQuanLyVeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyVeMouseClicked
+    private void btnQuanLyDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuanLyDDActionPerformed
         // TODO add your handling code here:
-        new MenuQuanLy().setVisible(false);
-        new QuanLyVe().setVisible(true);
-    }//GEN-LAST:event_btnQuanLyVeMouseClicked
+        QuanLyDiaDiem a = new QuanLyDiaDiem();
+        a.show();
+        this.dispose();
+    }//GEN-LAST:event_btnQuanLyDDActionPerformed
 
-    private void btnQuanLyUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyUserMouseClicked
+    private void btnQuanLyVeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuanLyVeActionPerformed
         // TODO add your handling code here:
-        new MenuQuanLy().setVisible(false);
-        new QuanLyUser().setVisible(true);
-    }//GEN-LAST:event_btnQuanLyUserMouseClicked
+        QuanLyVe a = new QuanLyVe();
+        a.show();
+        this.dispose();
+    }//GEN-LAST:event_btnQuanLyVeActionPerformed
 
-    private void btnQuanLyDDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuanLyDDMouseClicked
+    private void btnQuanLyTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuanLyTourActionPerformed
         // TODO add your handling code here:
-        new MenuQuanLy().setVisible(false);
-        new QuanLyDiaDiem().setVisible(true);
-    }//GEN-LAST:event_btnQuanLyDDMouseClicked
-
-    private void btnThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThoatMouseClicked
-        // TODO add your handling code here:
-        int click=JOptionPane.showConfirmDialog(null,"Chắc chắn thoát","Thoát?",JOptionPane.YES_NO_OPTION);
-          if (click==JOptionPane.YES_OPTION) {    
-               System.exit(1);
-          }
-    }//GEN-LAST:event_btnThoatMouseClicked
+        QuanLyTour a = new QuanLyTour();
+        a.show();
+        this.dispose();
+    }//GEN-LAST:event_btnQuanLyTourActionPerformed
 
     /**
      * @param args the command line arguments
@@ -199,7 +178,6 @@ public class MenuQuanLy extends javax.swing.JFrame {
     private javax.swing.JButton btnQuanLyTour;
     private javax.swing.JButton btnQuanLyUser;
     private javax.swing.JButton btnQuanLyVe;
-    private javax.swing.JButton btnThoat;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

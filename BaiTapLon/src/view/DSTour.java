@@ -5,6 +5,8 @@
  */
 package view;
 
+import Dao.Ve;
+import controller.DAOve;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -100,11 +102,11 @@ public class DSTour extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbtour1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)
+                        .addComponent(lbtour1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
-                        .addGap(67, 67, 67)
-                        .addComponent(lbtour2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(34, 34, 34)
+                        .addComponent(lbtour2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(74, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(157, 157, 157)
@@ -150,6 +152,14 @@ public class DSTour extends javax.swing.JFrame {
         if (val == JOptionPane.YES_OPTION ) {
             dk.show();
             this.setVisible(false);
+            ArrayList<Ve> listVe = new ArrayList<Ve>();
+            listVe =  new DAOve().getListVe();
+            XacNhanThongTin xn = new XacNhanThongTin();
+            int x = tblDSchuyenbay.getSelectedRow();
+            String mt = tblDSchuyenbay.getValueAt(x, 0).toString();
+            int i = listVe.size()+1;
+            String mv = "Ve"+ i +"";
+            xn.setTour(lbtour2.getText(), mt, mv);
         }
     }//GEN-LAST:event_btnDatActionPerformed
 

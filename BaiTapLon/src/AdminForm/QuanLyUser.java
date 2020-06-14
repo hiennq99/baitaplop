@@ -5,6 +5,13 @@
  */
 package AdminForm;
 
+import Dao.Users;
+import controller.DAOuser;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import validate.Validator;
+
 /**
  *
  * @author nvta1
@@ -14,8 +21,25 @@ public class QuanLyUser extends javax.swing.JFrame {
     /**
      * Creates new form QuanLyUser
      */
+    private final String[] header = {"STT", "Mã User", "Họ Tên", "Số Điện Thoại", "Email", "Địa Chỉ", "Số Người"};
+    private ArrayList<Users> items = new ArrayList<>();
+    private int selectedIndex;
+    private DefaultTableModel model;
+
     public QuanLyUser() {
         initComponents();
+        model = (DefaultTableModel) tbQuanLyUser.getModel();
+        model.setColumnIdentifiers(header);
+        showTable();
+    }
+
+    public void clearText() {
+        txtMaUser.setText("");
+        txtHoTen.setText("");
+        txtSoDT.setText("");
+        txtEmail.setText("");
+        txtSoNguoi.setText("");
+        txtDiaChi.setText("");
     }
 
     /**
@@ -45,6 +69,7 @@ public class QuanLyUser extends javax.swing.JFrame {
         btnThoai = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         txtDiaChi = new javax.swing.JTextField();
+        btnThem = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,15 +97,42 @@ public class QuanLyUser extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbQuanLyUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbQuanLyUserMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbQuanLyUser);
 
         btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
 
         btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
         btnThoai.setText("Thoát");
+        btnThoai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThoaiActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Địa chỉ");
+
+        btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -99,9 +151,9 @@ public class QuanLyUser extends javax.swing.JFrame {
                                 .addComponent(jLabel3)
                                 .addComponent(jLabel2))
                             .addGap(23, 23, 23)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtMaUser, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtHoTen, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtHoTen, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                                .addComponent(txtMaUser))
                             .addGap(52, 52, 52)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel5)
@@ -120,13 +172,15 @@ public class QuanLyUser extends javax.swing.JFrame {
                                 .addComponent(txtDiaChi)))))
                 .addContainerGap(67, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(161, 161, 161)
+                .addGap(85, 85, 85)
+                .addComponent(btnThem)
+                .addGap(121, 121, 121)
                 .addComponent(btnSua)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnXoa)
-                .addGap(188, 188, 188)
+                .addGap(135, 135, 135)
                 .addComponent(btnThoai)
-                .addGap(178, 178, 178))
+                .addGap(121, 121, 121))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,12 +209,112 @@ public class QuanLyUser extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSua)
                     .addComponent(btnXoa)
-                    .addComponent(btnThoai))
+                    .addComponent(btnThoai)
+                    .addComponent(btnThem))
                 .addContainerGap(64, Short.MAX_VALUE))
         );
 
+        btnThem.getAccessibleContext().setAccessibleDescription("");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        // TODO add your handling code here:
+        boolean isSuccess = true;
+        ArrayList<Validator> data = new ArrayList<>();
+        Validator MaUsers = new Validator(txtMaUser.getText(), new String[]{"required"}, "Mã User"),
+                HoTen = new Validator(txtHoTen.getText(), new String[]{"required", "isString"}, "Họ tên"),
+                SoDT = new Validator(txtSoDT.getText(), new String[]{"required", "isDecimal"}, "Số điện thoại"),
+                Email = new Validator(txtEmail.getText(), new String[]{"required", "isEmail"}, "Email"),
+                soNguoi = new Validator(txtSoNguoi.getText(), new String[]{"required", "isDecimal"}, "Số người"),
+                DiaChi = new Validator(txtDiaChi.getText(), new String[]{"required", "isString"}, "Địa chỉ");
+        data.add(MaUsers);
+        data.add(HoTen);
+        data.add(SoDT);
+        data.add(Email);
+        data.add(soNguoi);
+        data.add(DiaChi);
+        for (Validator s : data) {
+            if (!s.setTextField(this)) {
+                isSuccess = false;
+            }
+        }
+        if (isSuccess) {
+            Users item;
+            item = new Users(MaUsers.getText(), HoTen.getText(), SoDT.getText(), Email.getText(), DiaChi.getText(), Integer.parseInt(soNguoi.getText()));
+            if (new DAOuser().addItem(item)) {
+                this.showTable();
+                JOptionPane.showMessageDialog(this, "Thêm mới thành công!");
+                clearText();
+            } else {
+                JOptionPane.showMessageDialog(this, "Địa Điểm đã tồn tại!");
+            }
+        }
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void tbQuanLyUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbQuanLyUserMouseClicked
+        // TODO add your handling code here:
+        int row = tbQuanLyUser.getSelectedRow();
+        txtMaUser.setText(model.getValueAt(row, 1).toString());
+        txtHoTen.setText(model.getValueAt(row, 2).toString());
+        txtSoDT.setText(model.getValueAt(row, 3).toString());
+        txtEmail.setText(model.getValueAt(row, 4).toString());
+        txtDiaChi.setText(model.getValueAt(row, 5).toString());
+        txtSoNguoi.setText(model.getValueAt(row, 6).toString());
+    }//GEN-LAST:event_tbQuanLyUserMouseClicked
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        // TODO add your handling code here:
+        boolean isSuccess = true;
+        ArrayList<Validator> data = new ArrayList<>();
+        Validator MaUsers = new Validator(txtMaUser.getText(), new String[]{"required"}, "Mã User"),
+                HoTen = new Validator(txtHoTen.getText(), new String[]{"required", "isString"}, "Họ tên"),
+                SoDT = new Validator(txtSoDT.getText(), new String[]{"required", "isDecimal"}, "Số điện thoại"),
+                Email = new Validator(txtEmail.getText(), new String[]{"required", "isEmail"}, "Email"),
+                soNguoi = new Validator(txtSoNguoi.getText(), new String[]{"required", "isDecimal"}, "Số người"),
+                DiaChi = new Validator(txtDiaChi.getText(), new String[]{"required", "isString"}, "Địa chỉ");
+        data.add(MaUsers);
+        data.add(HoTen);
+        data.add(SoDT);
+        data.add(Email);
+        data.add(soNguoi);
+        data.add(DiaChi);
+        for (Validator s : data) {
+            if (!s.setTextField(this)) {
+                isSuccess = false;
+            }
+        }
+        if (isSuccess) {
+            Users item = new Users(txtMaUser.getText(), txtHoTen.getText(), txtSoDT.getText(), txtEmail.getText(), txtDiaChi.getText(), Integer.parseInt(txtSoNguoi.getText()));
+            if (new DAOuser().updateItem(item)) {
+                this.showTable();
+                JOptionPane.showMessageDialog(this, "Sửa mới thành công!");
+                clearText();
+            } else {
+                JOptionPane.showMessageDialog(this, "Không sửa được");
+            }
+        }
+    }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+        Users item = new Users(txtMaUser.getText(), txtHoTen.getText(), txtSoDT.getText(), txtEmail.getText(), txtDiaChi.getText(), Integer.parseInt(txtSoNguoi.getText()));
+        if (new DAOuser().deleteItem(item)) {
+            this.showTable();
+            JOptionPane.showMessageDialog(this, "Xóa thành công!");
+            clearText();
+        } else {
+            JOptionPane.showMessageDialog(this, "Không xóa được!");
+        }
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnThoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoaiActionPerformed
+        // TODO add your handling code here:
+        MenuQuanLy  a =  new  MenuQuanLy();
+        a.show();
+        this.dispose();
+    }//GEN-LAST:event_btnThoaiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -197,8 +351,20 @@ public class QuanLyUser extends javax.swing.JFrame {
         });
     }
 
+    // hien thi danh sach
+    public void showTable() {
+        items = new DAOuser().getListUsers();
+        model.setRowCount(0);
+        for (Users item : items) {
+            model.addRow(new Object[]{
+                model.getRowCount() + 1, item.getMaUsers(), item.getHoTen(), item.getSoDT(), item.getEmail(), item.getDiaChi(), item.getSoNguoi()
+            });
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSua;
+    private javax.swing.JButton btnThem;
     private javax.swing.JButton btnThoai;
     private javax.swing.JButton btnXoa;
     private javax.swing.JLabel jLabel1;

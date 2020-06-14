@@ -33,6 +33,13 @@ public class DangKyTour extends javax.swing.JFrame {
     public DangKyTour() {
         initComponents();
     }
+    public void clearText(){
+        txtHoten.setText("");
+        txtSdt.setText("");
+        txtEmail.setText("");
+        txtDiachi.setText("");
+        txtSonguoi.setText("");
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -86,6 +93,11 @@ public class DangKyTour extends javax.swing.JFrame {
         });
 
         btnHuybo.setText("Hủy bỏ");
+        btnHuybo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHuyboActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -164,8 +176,8 @@ public class DangKyTour extends javax.swing.JFrame {
         Validator hoTen = new Validator(txtHoten.getText(), new String[]{"required", "isString"}, "Họ tên"),
                 sdt = new Validator(txtSdt.getText(), new String[]{"required", "isInteger"}, "Số điện thoại"),
                 email = new Validator(txtEmail.getText(), new String[]{"required", "isEmail"}, "eMail"),
-                diachi = new Validator(txtDiachi.getText(), new String[]{"required", "isString"}, "Dia Chi"),
-                songuoi = new Validator(txtSonguoi.getText(), new String[]{"required", "isInteger"}, "So Nguoi");
+                diachi = new Validator(txtDiachi.getText(), new String[]{"required", "isString"}, "Địa chỉ"),
+                songuoi = new Validator(txtSonguoi.getText(), new String[]{"required", "isInteger"}, "Số người");
         data.add(hoTen);
         data.add(sdt);
         data.add(email);
@@ -188,12 +200,29 @@ public class DangKyTour extends javax.swing.JFrame {
             Users item = new Users(id + sz, txtHoten.getText(), txtSdt.getText(), txtEmail.getText(), txtDiachi.getText(), Integer.parseInt(txtSonguoi.getText()));
             if (new DAOuser().addItem(item)) {
                 JOptionPane.showMessageDialog(this, "Thêm mới thành công!");
+                clearText();
             } else {
-                JOptionPane.showMessageDialog(this, "Mã thí sinh đã tồn tại!");
             }
-
+            XacNhanThongTin xn = new XacNhanThongTin();
+            xn.setUser(id, txtHoten.getText(), txtSdt.getText(), txtEmail.getText(), txtDiachi.getText(), txtSonguoi.getText());
+            xn.show();
+            this.dispose();
         }
     }//GEN-LAST:event_btnDangkyActionPerformed
+
+    private void btnHuyboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyboActionPerformed
+        // TODO add your handling code here:
+        int a = JOptionPane.showConfirmDialog(this, "Xác nhận thoát","Thông báo",JOptionPane.YES_NO_OPTION);
+      if(a == OK_OPTION)
+      {
+            try {
+                SearchTour b= new SearchTour();
+                b.show();
+                this.dispose();
+            } catch (Exception ex) {
+            }
+      }
+    }//GEN-LAST:event_btnHuyboActionPerformed
 
     /**
      * @param args the command line arguments
