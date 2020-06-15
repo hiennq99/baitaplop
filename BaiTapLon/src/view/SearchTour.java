@@ -44,7 +44,6 @@ public class SearchTour extends javax.swing.JFrame {
         ListKH = new DAOdiaDiem().getListTrongNuoc();
         listDD = new DAOdiaDiem().getListNuocNgoai();
         listTour = new DAOtour().getListTour();
-
         cbKhoihanh.setModel(new DefaultComboBoxModel(ListKH.toArray()));
         cbDiemden.setModel(new DefaultComboBoxModel(ListKH.toArray()));
     }
@@ -204,7 +203,7 @@ public class SearchTour extends javax.swing.JFrame {
             DSTour ds = new DSTour();
             String a = ListKH.get(cbKhoihanh.getSelectedIndex()).getMaDiaDiem();
             String b = null;
-            boolean check= true;
+            boolean check = true;
             if (btnTrongnuoc.isEnabled()) {
                 b = ListKH.get(cbDiemden.getSelectedIndex()).getMaDiaDiem();
             } else {
@@ -219,15 +218,12 @@ public class SearchTour extends javax.swing.JFrame {
 //                JOptionPane.showMessageDialog(this, "Ngày không đúng định dạng dd/MM/yyyy");
 //                check = false;
 //            }
-            if(txtDate.getText().equals(""))
-            {
+            if (txtDate.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Ngày không được bỏ trống");
-                check =  false;
-                
+                check = false;
             }
-            if (a != b && check==true) {
-
-                ds.settittle(cbKhoihanh.getSelectedItem().toString(), cbDiemden.getSelectedItem().toString());
+            if (a != b && check == true) {
+                ds.settittle(cbKhoihanh.getSelectedItem().toString(), cbDiemden.getSelectedItem().toString(), a, b);
                 ds.show();
                 this.setVisible(false);
             } else {

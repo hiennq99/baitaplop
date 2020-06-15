@@ -5,7 +5,9 @@
  */
 package view;
 
+import Dao.Tour;
 import Dao.Ve;
+import controller.DAOtour;
 import controller.DAOve;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -21,9 +23,13 @@ public class DSTour extends javax.swing.JFrame {
     /**
      * Creates new form DSTour
      */
+    private ArrayList<Tour> list = new ArrayList<>();
+
     public DSTour() {
         initComponents();
         btnDat.setEnabled(false);
+        btnXemChiTiet.setEnabled(false);
+
     }
 
     /**
@@ -45,7 +51,11 @@ public class DSTour extends javax.swing.JFrame {
         btnHuy = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         lbGioiThieu = new javax.swing.JLabel();
-        btnXem = new javax.swing.JButton();
+        btnXemChiTiet = new javax.swing.JButton();
+        lbKH = new javax.swing.JLabel();
+        lbDD1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtGioiThieu = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -102,44 +112,64 @@ public class DSTour extends javax.swing.JFrame {
 
         lbGioiThieu.setText(".");
 
-        btnXem.setText("Xem chi tiết tour");
-        btnXem.addActionListener(new java.awt.event.ActionListener() {
+        btnXemChiTiet.setText("Xem chi tiết tour");
+        btnXemChiTiet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXemActionPerformed(evt);
+                btnXemChiTietActionPerformed(evt);
             }
         });
+
+        lbKH.setFont(new java.awt.Font("Tahoma", 2, 9)); // NOI18N
+        lbKH.setText("jLabel4");
+
+        lbDD1.setFont(new java.awt.Font("Tahoma", 2, 9)); // NOI18N
+        lbDD1.setText("jLabel5");
+
+        txtGioiThieu.setColumns(20);
+        txtGioiThieu.setRows(5);
+        txtGioiThieu.setText("Mời Quý khách chọn Tour! \nWelcome!");
+        jScrollPane2.setViewportView(txtGioiThieu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 763, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbtour1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3)
-                        .addGap(34, 34, 34)
-                        .addComponent(lbtour2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnXem, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(74, 74, 74)
+                                .addComponent(lbtour1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel3))
+                            .addComponent(lbKH))
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbtour2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbDD1)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnXemChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(90, 90, 90)
                                 .addComponent(btnDat, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(15, 15, 15))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(28, 28, 28)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 763, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jScrollPane2)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lbGioiThieu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,28 +180,40 @@ public class DSTour extends javax.swing.JFrame {
                     .addComponent(lbtour1)
                     .addComponent(jLabel3)
                     .addComponent(lbtour2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbGioiThieu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 173, Short.MAX_VALUE)))
+                        .addGap(115, 115, 115)
+                        .addComponent(lbGioiThieu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbKH)
+                            .addComponent(lbDD1))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDat, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnXem, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnXemChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(45, 45, 45))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    public void settittle(String kh, String dd) {
+    public void settittle(String kh, String dd, String lbkh, String lbDD) {
         lbtour1.setText(kh);
         lbtour2.setText(dd);
-
+        lbKH.setText(lbkh);
+        lbDD1.setText(lbDD);
     }
 
     public void setTable(ArrayList a) {
@@ -181,17 +223,17 @@ public class DSTour extends javax.swing.JFrame {
         // TODO add your handling code here:
         DangKyTour dk = new DangKyTour();
 
-        int val=JOptionPane.showConfirmDialog(rootPane, "Xác nhận đặt vé", "Thông báo", JOptionPane.YES_NO_OPTION);
-        if (val == JOptionPane.YES_OPTION ) {
+        int val = JOptionPane.showConfirmDialog(rootPane, "Xác nhận đặt vé", "Thông báo", JOptionPane.YES_NO_OPTION);
+        if (val == JOptionPane.YES_OPTION) {
             dk.show();
             this.setVisible(false);
             ArrayList<Ve> listVe = new ArrayList<Ve>();
-            listVe =  new DAOve().getListVe();
+            listVe = new DAOve().getListVe();
             XacNhanThongTin xn = new XacNhanThongTin();
             int x = tblDSchuyenbay.getSelectedRow();
             String mt = tblDSchuyenbay.getValueAt(x, 0).toString();
-            int i = listVe.size()+1;
-            String mv = "Ve"+ i +"";
+            int i = listVe.size() + 1;
+            String mv = "Ve" + i + "";
             xn.setTour(lbtour2.getText(), mt, mv);
         }
     }//GEN-LAST:event_btnDatActionPerformed
@@ -216,11 +258,22 @@ public class DSTour extends javax.swing.JFrame {
     private void tblDSchuyenbayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDSchuyenbayMouseClicked
         // TODO add your handling code here:
         btnDat.setEnabled(true);
+        btnXemChiTiet.setEnabled(true);
+        list = new DAOtour().searchTour(lbKH.getText().trim(), lbDD1.getText().trim());
+        int a = tblDSchuyenbay.getSelectedRow();
+        txtGioiThieu.setText(list.get(a).getGioiThieuTour());
+        System.out.println(list.get(a).getGioiThieuTour());
+        System.out.println(list.get(a).getDichVu());
     }//GEN-LAST:event_tblDSchuyenbayMouseClicked
 
-    private void btnXemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemActionPerformed
+    private void btnXemChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemChiTietActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnXemActionPerformed
+        ChiTietTour ct = new ChiTietTour();
+        list = new DAOtour().searchTour(lbKH.getText().trim(), lbDD1.getText().trim());
+        int a = tblDSchuyenbay.getSelectedRow();
+        ct.show();
+        ct.settittle(list.get(a).getDichVu(), list.get(a).getLichTrinhTour(), list.get(a).getChiTietLichTrinh());
+    }//GEN-LAST:event_btnXemChiTietActionPerformed
 
     /**
      * @param args the command line arguments
@@ -260,14 +313,18 @@ public class DSTour extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDat;
     private javax.swing.JButton btnHuy;
-    private javax.swing.JButton btnXem;
+    private javax.swing.JButton btnXemChiTiet;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lbDD1;
     private javax.swing.JLabel lbGioiThieu;
+    private javax.swing.JLabel lbKH;
     private javax.swing.JLabel lbtour1;
     private javax.swing.JLabel lbtour2;
     private javax.swing.JTable tblDSchuyenbay;
+    private javax.swing.JTextArea txtGioiThieu;
     // End of variables declaration//GEN-END:variables
 }

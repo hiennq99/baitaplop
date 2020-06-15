@@ -23,7 +23,9 @@ import validate.Validator;
  */
 public class QuanLyTour extends javax.swing.JFrame {
 
-    private final String[] header = {"STT", "Mã Tour", "Tên Tour", "Ngày Khời Hành", "Thời Lượng", "Nơi Khởi Hành", "Nơi Đến", "Giá"};
+    private final String[] header = {"STT", "Mã Tour", "Tên Tour", "Ngày Khời Hành"
+            , "Thời Lượng", "Nơi Khởi Hành", "Nơi Đến", "Giá", "LichTrinhTour"
+            , "ChiTietLichTrinh", "DichVu", "GioiThieuTour", "KhuyenMai",};
     private ArrayList<Tour> items = new ArrayList<>();
     private int selectedIndex;
     private DefaultTableModel model;
@@ -43,7 +45,7 @@ public class QuanLyTour extends javax.swing.JFrame {
         model.setRowCount(0);
         for (Tour item : items) {
             model.addRow(new Object[]{
-                model.getRowCount() + 1, item.getMaTour(), item.getTenTour(), item.getNgayKH(), item.getThoiLuong(), item.getNoiKH(), item.getNoiDen(), item.getGia()
+                model.getRowCount() + 1, item.getMaTour(), item.getTenTour(), item.getNgayKH(), item.getThoiLuong(), item.getNoiKH(), item.getNoiDen(), item.getGia(), item.getLichTrinhTour(), item.getChiTietLichTrinh(), item.getDichVu(), item.getGioiThieuTour(), item.getKhuyenMai()
             });
         }
     }
@@ -80,15 +82,19 @@ public class QuanLyTour extends javax.swing.JFrame {
         btnThem = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        txtLichTrinh = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        txtDichVu = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         txtGioiThieuTour = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         txtKhuyenMai = new javax.swing.JTextField();
-        txtChiTietLichTrinh = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtChiTietLichTrinh = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtLichTrinh = new javax.swing.JTextArea();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        txtDichVu = new javax.swing.JTextArea();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -139,6 +145,8 @@ public class QuanLyTour extends javax.swing.JFrame {
             }
         });
 
+        txtNgayKH.setToolTipText("DD/MM/YYY");
+
         btnThoai.setText("Thoát");
         btnThoai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -184,12 +192,77 @@ public class QuanLyTour extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel12.setText("Khuyến Mãi");
 
+        txtChiTietLichTrinh.setColumns(20);
+        txtChiTietLichTrinh.setRows(5);
+        jScrollPane2.setViewportView(txtChiTietLichTrinh);
+
+        txtLichTrinh.setColumns(20);
+        txtLichTrinh.setRows(5);
+        jScrollPane3.setViewportView(txtLichTrinh);
+
+        txtDichVu.setColumns(20);
+        txtDichVu.setRows(5);
+        jScrollPane4.setViewportView(txtDichVu);
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel13.setText("yyyy/mm/dd");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel3))
+                                .addGap(26, 26, 26))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtTenTour, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtMaTour, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                            .addComponent(txtGia, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel4))
+                                .addGap(46, 46, 46))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addGap(18, 18, 18)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                            .addComponent(txtThoiLuong)
+                            .addComponent(txtNgayKH)
+                            .addComponent(txtGioiThieuTour))
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel6)
+                            .addComponent(jlable6)
+                            .addComponent(jLabel9))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtNoiKH)
+                            .addComponent(txtNoiDen)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                            .addComponent(txtKhuyenMai))))
+                .addGap(29, 29, 29))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -199,103 +272,82 @@ public class QuanLyTour extends javax.swing.JFrame {
                 .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
                 .addComponent(btnThoai, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
+                .addGap(122, 122, 122))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel10))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtGia, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-                            .addComponent(txtTenTour)
-                            .addComponent(txtMaTour)
-                            .addComponent(txtDichVu))
-                        .addGap(57, 57, 57)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel8))
-                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNgayKH)
-                            .addComponent(txtThoiLuong)
-                            .addComponent(txtLichTrinh)
-                            .addComponent(txtGioiThieuTour, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(36, 36, 36)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlable6)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel12))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNoiKH, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNoiDen, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtKhuyenMai, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtChiTietLichTrinh, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 838, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(303, 303, 303)))))
-                .addGap(23, 23, 23))
+                .addGap(381, 381, 381)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtMaTour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtNgayKH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlable6)
-                    .addComponent(txtNoiKH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtTenTour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtThoiLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtNoiDen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(txtGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(txtLichTrinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(txtChiTietLichTrinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(txtDichVu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11)
-                    .addComponent(txtGioiThieuTour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12)
-                    .addComponent(txtKhuyenMai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnClear, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                    .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnXoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnThoai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(92, 92, 92)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(txtNgayKH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jlable6))
+                                        .addGap(4, 4, 4)
+                                        .addComponent(jLabel13)
+                                        .addGap(1, 1, 1)
+                                        .addComponent(txtThoiLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel5)
+                                            .addComponent(txtTenTour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(txtMaTour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel2))
+                                    .addComponent(txtNoiKH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNoiDen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3)))
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtGioiThieuTour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel11))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7))
+                    .addComponent(txtKhuyenMai, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(34, 34, 34)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnThoai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnXoa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSua, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnThem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnClear, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
@@ -308,17 +360,27 @@ public class QuanLyTour extends javax.swing.JFrame {
         txtNoiKH.setText("");
         txtNoiDen.setText("");
         txtGia.setText("");
+        txtLichTrinh.setText("");
+        txtChiTietLichTrinh.setText("");
+        txtDichVu.setText("");
+        txtGioiThieuTour.setText("");
+        txtKhuyenMai.setText("");
     }
     private void tbQuanLyTourMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbQuanLyTourMouseClicked
         // TODO add your handling code here:
         int row = tbQuanLyTour.getSelectedRow();
-        txtMaTour.setText(model.getValueAt(row, 1).toString());
-        txtTenTour.setText(model.getValueAt(row, 2).toString());
-        txtNgayKH.setText(model.getValueAt(row, 3).toString());
-        txtThoiLuong.setText(model.getValueAt(row, 4).toString());
-        txtNoiKH.setText(model.getValueAt(row, 5).toString());
-        txtNoiDen.setText(model.getValueAt(row, 6).toString());
-        txtGia.setText(model.getValueAt(row, 7).toString());
+        txtMaTour.setText(model.getValueAt(row, 1).toString().trim());
+        txtTenTour.setText(model.getValueAt(row, 2).toString().trim());
+        txtNgayKH.setText(model.getValueAt(row, 3).toString().trim());
+        txtThoiLuong.setText(model.getValueAt(row, 4).toString().trim());
+        txtNoiKH.setText(model.getValueAt(row, 5).toString().trim());
+        txtNoiDen.setText(model.getValueAt(row, 6).toString().trim());
+        txtGia.setText(model.getValueAt(row, 7).toString().trim());
+        txtLichTrinh.setText(model.getValueAt(row, 8).toString().trim());
+        txtChiTietLichTrinh.setText(model.getValueAt(row, 9).toString().trim());
+        txtDichVu.setText(model.getValueAt(row, 10).toString().trim());
+        txtGioiThieuTour.setText(model.getValueAt(row, 11).toString().trim());
+        txtKhuyenMai.setText(model.getValueAt(row, 12).toString().trim());
 
     }//GEN-LAST:event_tbQuanLyTourMouseClicked
 
@@ -336,21 +398,21 @@ public class QuanLyTour extends javax.swing.JFrame {
                 tenTour = new Validator(txtTenTour.getText(), new String[]{"required", "isString"}, "Tên Tour"),
                 ngayKH = new Validator(txtNgayKH.getText(), new String[]{"required"}, "Ngày khởi hành"),
                 thoiLuong = new Validator(txtThoiLuong.getText(), new String[]{"required", "isInteger"}, "Thời lượng"),
-                noiKH = new Validator(txtNoiKH.getText(), new String[]{"required"}, "Nơi khởi hành"),
-                noiDen = new Validator(txtNoiDen.getText(), new String[]{"required"}, "Nơi đến"),
+                noiKH = new Validator(txtNoiKH.getText().trim(), new String[]{"required"}, "Nơi khởi hành"),
+                noiDen = new Validator(txtNoiDen.getText().trim(), new String[]{"required"}, "Nơi đến"),
                 gia = new Validator(txtGia.getText(), new String[]{"required", "isInteger"}, "Giá"),
                 LichTrinhTour = new Validator(txtLichTrinh.getText(), new String[]{"required"}, "Lịch Trình"),
                 ChiTietLichTrinh = new Validator(txtChiTietLichTrinh.getText(), new String[]{"required"}, "Lịch Trình"),
                 DichVu = new Validator(txtDichVu.getText(), new String[]{"required"}, "Lịch Trình"),
                 GioiThieuTour = new Validator(txtGioiThieuTour.getText(), new String[]{"required"}, "Lịch Trình"),
-                KhuyenMai = new Validator(txtKhuyenMai.getText(), new String[]{"required"}, "Lịch Trình");
+                KhuyenMai = new Validator(txtKhuyenMai.getText().trim(), new String[]{"required"}, "Lịch Trình");
 
-        try {
-            Date ngayKH1 = new SimpleDateFormat("dd/MM/yyyy").parse(txtNgayKH.getText());
-        } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(this, "Ngày khởi hành phải đúng định dạng dd/MM/yyyy");
-            isSuccess = false;
-        }
+//        try {
+//            Date ngayKH1 = new SimpleDateFormat("dd/MM/yyyy").parse(txtNgayKH.getText().trim());
+//        } catch (ParseException ex) {
+//            JOptionPane.showMessageDialog(this, "Ngày khởi hành phải đúng định dạng dd/MM/yyyy");
+//            isSuccess = false;
+//        }
         data.add(maTour);
         data.add(tenTour);
         data.add(ngayKH);
@@ -369,8 +431,13 @@ public class QuanLyTour extends javax.swing.JFrame {
                 isSuccess = false;
             }
         }
+        System.out.println(txtKhuyenMai.getText());
         if (isSuccess) {
-            Tour item = new Tour(maTour.getText(), tenTour.getText(), ngayKH.getText(), Integer.parseInt(thoiLuong.getText()), noiKH.getText().toUpperCase(), noiDen.getText().toUpperCase(), gia.getText(),LichTrinhTour.getText());
+            Tour item = new Tour(maTour.getText().trim().toUpperCase(), tenTour.getText().trim(),
+                    ngayKH.getText().trim(), Integer.parseInt(thoiLuong.getText().trim()),
+                    noiKH.getText().trim().toUpperCase(), noiDen.getText().trim().toUpperCase(),
+                    gia.getText().trim(), LichTrinhTour.getText().trim(), ChiTietLichTrinh.getText().trim(),
+                    DichVu.getText().trim(), GioiThieuTour.getText().trim(), KhuyenMai.getText().trim());
             if (new DAOtour().addItem(item)) {
                 this.showTable();
                 JOptionPane.showMessageDialog(this, "Thêm mới thành công!");
@@ -392,7 +459,12 @@ public class QuanLyTour extends javax.swing.JFrame {
                 thoiLuong = new Validator(txtThoiLuong.getText(), new String[]{"required", "isInteger"}, "Thời lượng"),
                 noiKH = new Validator(txtNoiKH.getText(), new String[]{"required"}, "Nơi khởi hành"),
                 noiDen = new Validator(txtNoiDen.getText(), new String[]{"required"}, "Nơi đến"),
-                gia = new Validator(txtGia.getText().trim(), new String[]{"required", "isInteger"}, "Giá");
+                gia = new Validator(txtGia.getText().trim(), new String[]{"required", "isInteger"}, "Giá"),
+                LichTrinhTour = new Validator(txtLichTrinh.getText(), new String[]{"required"}, "Lịch Trình"),
+                ChiTietLichTrinh = new Validator(txtChiTietLichTrinh.getText(), new String[]{"required"}, "Lịch Trình"),
+                DichVu = new Validator(txtDichVu.getText(), new String[]{"required"}, "Lịch Trình"),
+                GioiThieuTour = new Validator(txtGioiThieuTour.getText(), new String[]{"required"}, "Lịch Trình"),
+                KhuyenMai = new Validator(txtKhuyenMai.getText(), new String[]{"required"}, "Lịch Trình");
         try {
             Date ngayKH1 = new SimpleDateFormat("yyyy-dd-MM").parse(txtNgayKH.getText());
         } catch (ParseException ex) {
@@ -406,13 +478,22 @@ public class QuanLyTour extends javax.swing.JFrame {
         data.add(noiKH);
         data.add(noiDen);
         data.add(gia);
+        data.add(LichTrinhTour);
+        data.add(ChiTietLichTrinh);
+        data.add(DichVu);
+        data.add(GioiThieuTour);
+        data.add(KhuyenMai);
         for (Validator s : data) {
             if (!s.setTextField(this)) {
                 isSuccess = false;
             }
         }
         if (isSuccess) {
-            Tour item = new Tour(maTour.getText(), tenTour.getText(), ngayKH.getText(), Integer.parseInt(thoiLuong.getText()), noiKH.getText().toUpperCase(), noiDen.getText().toUpperCase(), gia.getText());
+            Tour item = new Tour(maTour.getText().trim(), tenTour.getText().trim(),
+                    ngayKH.getText(), Integer.parseInt(thoiLuong.getText().trim()),
+                    noiKH.getText().trim().toUpperCase(), noiDen.getText().trim().toUpperCase(),
+                    gia.getText(), LichTrinhTour.getText(), ChiTietLichTrinh.getText(),
+                    DichVu.getText().trim(), GioiThieuTour.getText().trim(), KhuyenMai.getText().trim());
             if (new DAOtour().UpdateItem(item)) {
                 this.showTable();
                 JOptionPane.showMessageDialog(this, "Sửa thành công!");
@@ -425,7 +506,7 @@ public class QuanLyTour extends javax.swing.JFrame {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
-        Tour item = new Tour(txtMaTour.getText(), null, null, ALLBITS, null, null, null);
+        Tour item = new Tour(txtMaTour.getText(), null, null, ALLBITS, null, null, null, null, null, null, null, null);
         if (new DAOtour().DeleteItem(item)) {
             this.showTable();
             JOptionPane.showMessageDialog(this, "Xóa thành công!");
@@ -487,6 +568,7 @@ public class QuanLyTour extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -496,14 +578,17 @@ public class QuanLyTour extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel jlable6;
     private javax.swing.JTable tbQuanLyTour;
-    private javax.swing.JTextField txtChiTietLichTrinh;
-    private javax.swing.JTextField txtDichVu;
+    private javax.swing.JTextArea txtChiTietLichTrinh;
+    private javax.swing.JTextArea txtDichVu;
     private javax.swing.JTextField txtGia;
     private javax.swing.JTextField txtGioiThieuTour;
     private javax.swing.JTextField txtKhuyenMai;
-    private javax.swing.JTextField txtLichTrinh;
+    private javax.swing.JTextArea txtLichTrinh;
     private javax.swing.JTextField txtMaTour;
     private javax.swing.JTextField txtNgayKH;
     private javax.swing.JTextField txtNoiDen;

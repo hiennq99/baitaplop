@@ -46,7 +46,7 @@ public class DAOtour extends DAO {
                 t.setChiTietLichTrinh(rs.getString("ChiTietLichTrinh"));
                 t.setDichVu(rs.getString("DichVu"));
                 t.setGioiThieuTour(rs.getString("GioiThieuTour"));
-                t.setKhuyenMai(rs.getString("KhuyenMai"));
+                t.setKhuyenMai(rs.getString("MaKhuyenMai"));
                 items.add(t);
             }
             rs.close();
@@ -81,7 +81,7 @@ public class DAOtour extends DAO {
                 t.setChiTietLichTrinh(rs.getString("ChiTietLichTrinh"));
                 t.setDichVu(rs.getString("DichVu"));
                 t.setGioiThieuTour(rs.getString("GioiThieuTour"));
-                t.setKhuyenMai(rs.getString("KhuyenMai"));
+                t.setKhuyenMai(rs.getString("MaKhuyenMai"));
                 items.add(t);
             }
             rs.close();
@@ -94,7 +94,11 @@ public class DAOtour extends DAO {
     }
 
     public boolean addItem(Tour item) {
-        String sql = "INSERT INTO " + table + "(MaTour, TenTour, NgayKH, ThoiLuong, NoiKH, NoiDen, Gia, LichTrinhTour, ChiTietLichTrinh, DichVu, GioiThieuTour, KhuyenMai) VALUES(?, ?, ?, ?, ?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO " + table + "(MaTour, TenTour, NgayKH"
+                + ", ThoiLuong, NoiKH, NoiDen, Gia"
+                + ", LichTrinhTour, ChiTietLichTrinh"
+                + ", DichVu, GioiThieuTour, MaKhuyenMai)"
+                + " VALUES(?, ?, ?, ?, ?,?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -107,10 +111,10 @@ public class DAOtour extends DAO {
             ps.setString(6, item.getNoiDen());
             ps.setString(7, item.getGia());
             ps.setString(8, item.getLichTrinhTour());
-            ps.setString(9, item.getLichTrinhTour());
-            ps.setString(10, item.getLichTrinhTour());
-            ps.setString(11, item.getLichTrinhTour());
-            ps.setString(12, item.getLichTrinhTour());
+            ps.setString(9, item.getChiTietLichTrinh());
+            ps.setString(10, item.getDichVu());
+            ps.setString(11, item.getGioiThieuTour());
+            ps.setString(12, item.getKhuyenMai());
 
             int isSuccess = ps.executeUpdate();
             ps.close();
@@ -128,7 +132,7 @@ public class DAOtour extends DAO {
                 + ", ThoiLuong = ?, NoiKH = ?,NoiDen = ?,Gia = ? "
                 + ", LichTrinhTour = ? , ChiTietLichTrinh = ?"
                 + " , DichVu = ? , GioiThieuTour = ? , "
-                + "KhuyenMai = ?   where MaTour = ? ";
+                + "MaKhuyenMai = ?   where MaTour = ? ";
 
         try {
             PreparedStatement ps = conn.prepareStatement(sql);

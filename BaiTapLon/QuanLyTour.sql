@@ -54,11 +54,11 @@ create table TOUR
 	NoiKH char(10),
 	NoiDen char(10),
 	Gia char(15),
-	LichTrinhTour varchar(500),
-	ChiTietLichTrinh varchar(1000),
-	DichVu varchar(500),
-	GioiThieuTour varchar(500),
-	MaKhuyenMai varchar(200),
+	LichTrinhTour varchar(2000),
+	ChiTietLichTrinh varchar(2000),
+	DichVu varchar(2000),
+	GioiThieuTour varchar(2000),
+	MaKhuyenMai char(10),
 	CONSTRAINT fk_TOUR_KH FOREIGN KEY (NoiKH) REFERENCES DIADIEM(MaDD),
 	CONSTRAINT fk_TOUR_DD FOREIGN KEY (NoiDen) REFERENCES DIADIEM(MaDD),
 	CONSTRAINT fk_TOUR_KM FOREIGN KEY (MaKhuyenMai) REFERENCES KhuyenMai(MaKhuyenMai)
@@ -124,6 +124,15 @@ INSERT INTO VE values ('VE01','ID01','T05','Ve di My'),
 ('VE02','ID03','T04','Ve di Phu Quoc'),
 ('VE03','ID02','T05','Ve di My'),
 ('VE04','ID04','T03','Ve di Nam My');
+MaKhuyenMai char(10) primary key,
+	TenKhuyenMai char(100),
+	GiaTriKM int,
+	NgayBD char(20),
+	NgayKT char(20)
+ INSERT INTO KhuyenMai VALUES ('KM01','KHUYEN MAI HE 2020',50,'11/8/2020','11/9/2020'),
+								('KM02','KHUYEN MAI HE 2020',50,'11/9/2020','11/10/2020'),
+								('KM03','KHUYEN MAI THU 2020',50,'11/10/2020','11/11/2020'),
+								('KM04','KHUYEN MAI DONG 2020',50,'11/11/2020','11/12/2020')
 
 select * from Tour where NoiKH='DD02' and NoiDen='DD04';
 select TOUR.MaTour, TenTour, NgayKH, NoiKH
