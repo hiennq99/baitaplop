@@ -5,6 +5,13 @@
  */
 package AdminForm;
 
+import Dao.Ve;
+import controller.DAOve;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import validate.Validator;
+
 /**
  *
  * @author nvta1
@@ -14,8 +21,23 @@ public class QuanLyVe extends javax.swing.JFrame {
     /**
      * Creates new form QuanLyVe
      */
+    private final String[] header = {"STT", "ID Vé", "Mã User", "Mã Tour", "Tên Vé"};
+    private ArrayList<Ve> items = new ArrayList<>();
+    private int selectedIndex;
+    private DefaultTableModel model;
+
     public QuanLyVe() {
         initComponents();
+        model = (DefaultTableModel) tbQuanLyVe.getModel();
+        model.setColumnIdentifiers(header);
+        showTable();
+    }
+
+    public void clearText() {
+        txtIDve.setText("");
+        txtMaUser.setText("");
+        txtMaTour.setText("");
+        txtTenVe.setText("");
     }
 
     /**
@@ -28,7 +50,7 @@ public class QuanLyVe extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbQuanLyDiaDiem = new javax.swing.JTable();
+        tbQuanLyVe = new javax.swing.JTable();
         txtTenVe = new javax.swing.JTextField();
         btnThem = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -37,7 +59,7 @@ public class QuanLyVe extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtMaTour = new javax.swing.JTextField();
         btnThoai = new javax.swing.JButton();
-        txtIDUser = new javax.swing.JTextField();
+        txtIDve = new javax.swing.JTextField();
         jlable6 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -45,7 +67,7 @@ public class QuanLyVe extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        tbQuanLyDiaDiem.setModel(new javax.swing.table.DefaultTableModel(
+        tbQuanLyVe.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -56,20 +78,45 @@ public class QuanLyVe extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tbQuanLyDiaDiem);
+        tbQuanLyVe.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbQuanLyVeMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbQuanLyVe);
 
         btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel1.setText("Quản Lý Địa Điểm");
+        jLabel1.setText("Quản Lý Vé");
 
         btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
 
         btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("ID Vé");
 
         btnThoai.setText("Thoát");
+        btnThoai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThoaiActionPerformed(evt);
+            }
+        });
 
         jlable6.setText("Tên vé");
 
@@ -87,19 +134,21 @@ public class QuanLyVe extends javax.swing.JFrame {
                         .addGap(52, 52, 52)
                         .addComponent(jLabel2)
                         .addGap(23, 23, 23)
-                        .addComponent(txtIDUser, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(66, 66, 66)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(txtIDve, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(80, 80, 80)
                                 .addComponent(jLabel4)
-                                .addGap(32, 32, 32)
-                                .addComponent(txtMaTour, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(8, 8, 8)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtMaTour, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(66, 66, 66)
+                                .addComponent(jLabel1)))
+                        .addGap(69, 69, 69)
                         .addComponent(jlable6)
                         .addGap(18, 18, 18)
                         .addComponent(txtTenVe, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 87, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(133, 133, 133)
                         .addComponent(btnThem)
@@ -111,11 +160,11 @@ public class QuanLyVe extends javax.swing.JFrame {
                         .addComponent(btnThoai)
                         .addGap(99, 99, 99))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 41, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
-                                .addGap(32, 32, 32)
+                                .addGap(18, 18, 18)
                                 .addComponent(txtMaUser, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 782, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
@@ -128,7 +177,7 @@ public class QuanLyVe extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtIDUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIDve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(txtMaTour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlable6)
@@ -150,6 +199,92 @@ public class QuanLyVe extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        // TODO add your handling code here:
+        boolean isSuccess = true;
+        ArrayList<Validator> data = new ArrayList<>();
+        Validator IDve = new Validator(txtIDve.getText(), new String[]{"required"}, "ID Vé"),
+                IDuser = new Validator(txtMaUser.getText(), new String[]{"required"}, "Mã User"),
+                MaTour = new Validator(txtMaTour.getText(), new String[]{"required"}, "Mã Tour"),
+                TenVe = new Validator(txtTenVe.getText(), new String[]{"required", "isString"}, "Tên Vé");
+        data.add(IDve);
+        data.add(IDuser);
+        data.add(MaTour);
+        data.add(TenVe);
+        for (Validator s : data) {
+            if (!s.setTextField(this)) {
+                isSuccess = false;
+            }
+        }
+        if (isSuccess) {
+            Ve item = new Ve(IDve.getText(), IDuser.getText(), MaTour.getText(), TenVe.getText());
+            if (new DAOve().addItem(item)) {
+                this.showTable();
+                JOptionPane.showMessageDialog(this, "Thêm mới thành công!");
+                clearText();
+            } else {
+                JOptionPane.showMessageDialog(this, "Vé đã tồn tại!");
+            }
+        }
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void tbQuanLyVeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbQuanLyVeMouseClicked
+        // TODO add your handling code here:
+        int rơw = tbQuanLyVe.getSelectedRow();
+        txtIDve.setText(model.getValueAt(rơw, 1).toString());
+        txtMaUser.setText(model.getValueAt(rơw, 2).toString());
+        txtMaTour.setText(model.getValueAt(rơw, 3).toString());
+        txtTenVe.setText(model.getValueAt(rơw, 4).toString());
+    }//GEN-LAST:event_tbQuanLyVeMouseClicked
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        // TODO add your handling code here:
+        boolean isSuccess = true;
+        ArrayList<Validator> data = new ArrayList<>();
+        Validator IDve = new Validator(txtIDve.getText(), new String[]{"required"}, "ID Vé"),
+                IDuser = new Validator(txtMaUser.getText(), new String[]{"required"}, "Mã User"),
+                MaTour = new Validator(txtMaTour.getText(), new String[]{"required"}, "Mã Tour"),
+                TenVe = new Validator(txtTenVe.getText(), new String[]{"required", "isString"}, "Tên Vé");
+        data.add(IDve);
+        data.add(IDuser);
+        data.add(MaTour);
+        data.add(TenVe);
+        for (Validator s : data) {
+            if (!s.setTextField(this)) {
+                isSuccess = false;
+            }
+        }
+        if (isSuccess) {
+            Ve item = new Ve(txtIDve.getText(), txtMaUser.getText(), txtMaTour.getText(), txtTenVe.getText());
+            if (new DAOve().updateItem(item)) {
+                this.showTable();
+                JOptionPane.showMessageDialog(this, "Sửa mới thành công!");
+                clearText();
+            } else {
+                JOptionPane.showMessageDialog(this, "Không sửa được!");
+            }
+        }
+    }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+        Ve item = new Ve(txtIDve.getText(), txtMaUser.getText(), txtMaTour.getText(), txtTenVe.getText());
+        if (new DAOve().deleteItem(item)) {
+            this.showTable();
+            JOptionPane.showMessageDialog(this, "Xóa thành công!");
+            clearText();
+        } else {
+            JOptionPane.showMessageDialog(this, "Không xóa được!");
+        }
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnThoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoaiActionPerformed
+        // TODO add your handling code here:
+        MenuQuanLy a = new MenuQuanLy();
+        a.show();
+        this.dispose();
+    }//GEN-LAST:event_btnThoaiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,6 +321,17 @@ public class QuanLyVe extends javax.swing.JFrame {
         });
     }
 
+    // hien thi danh sach
+    public void showTable() {
+        items = new DAOve().getListVe();
+        model.setRowCount(0);
+        for (Ve item : items) {
+            model.addRow(new Object[]{
+                model.getRowCount() + 1, item.getIDve(), item.getIDuser(), item.getMaTour(), item.getTenVe()
+            });
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
@@ -197,8 +343,8 @@ public class QuanLyVe extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel jlable6;
-    private javax.swing.JTable tbQuanLyDiaDiem;
-    private javax.swing.JTextField txtIDUser;
+    private javax.swing.JTable tbQuanLyVe;
+    private javax.swing.JTextField txtIDve;
     private javax.swing.JTextField txtMaTour;
     private javax.swing.JTextField txtMaUser;
     private javax.swing.JTextField txtTenVe;

@@ -5,6 +5,25 @@
  */
 package view;
 
+import Dao.DiaDiem;
+import Dao.Tour;
+import controller.DAOdiaDiem;
+import controller.DAOtour;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import java.security.spec.*;
+import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.OK_OPTION;
+import static javax.swing.JOptionPane.YES_OPTION;
+
 /**
  *
  * @author quang
@@ -14,8 +33,19 @@ public class SearchTour extends javax.swing.JFrame {
     /**
      * Creates new form SearchTour
      */
-    public SearchTour() {
+    private ArrayList<DiaDiem> listDD = new ArrayList<>();
+    private ArrayList<DiaDiem> ListKH = new ArrayList<>();
+    private ArrayList<Tour> listTour = new ArrayList<>();
+    private ArrayList<Tour> listTourSearch = new ArrayList<>();
+
+    public SearchTour() throws Exception {
+
         initComponents();
+        ListKH = new DAOdiaDiem().getListTrongNuoc();
+        listDD = new DAOdiaDiem().getListNuocNgoai();
+        listTour = new DAOtour().getListTour();
+        cbKhoihanh.setModel(new DefaultComboBoxModel(ListKH.toArray()));
+        cbDiemden.setModel(new DefaultComboBoxModel(ListKH.toArray()));
     }
 
     /**
@@ -27,21 +57,204 @@ public class SearchTour extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        cbDiemden = new javax.swing.JComboBox();
+        cbKhoihanh = new javax.swing.JComboBox();
+        btnXacnhan = new javax.swing.JButton();
+        btnHuy = new javax.swing.JButton();
+        txtDate = new javax.swing.JTextField();
+        btnTrongnuoc = new javax.swing.JButton();
+        btnNuocngoai = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setText("Công ty du lịch VietTravel");
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Khởi Hành");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("Điểm Đến");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Ngày đi");
+
+        cbDiemden.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        cbKhoihanh.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        btnXacnhan.setText("Tìm Tour");
+        btnXacnhan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXacnhanActionPerformed(evt);
+            }
+        });
+
+        btnHuy.setText("Hủy");
+        btnHuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHuyActionPerformed(evt);
+            }
+        });
+
+        btnTrongnuoc.setText("Du Lịch Trong Nước");
+        btnTrongnuoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTrongnuocActionPerformed(evt);
+            }
+        });
+
+        btnNuocngoai.setText("Du Lịch Nước Ngoài");
+        btnNuocngoai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuocngoaiActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(cbKhoihanh, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(2, 2, 2))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(btnXacnhan, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel3)
+                                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(13, 13, 13)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(cbDiemden, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(2, 2, 2))))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnTrongnuoc)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnNuocngoai, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnTrongnuoc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNuocngoai, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(cbKhoihanh, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cbDiemden, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnXacnhan, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(58, 58, 58))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnTrongnuocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrongnuocActionPerformed
+        try {
+            btnNuocngoai.setEnabled(false);
+            cbKhoihanh.setModel(new DefaultComboBoxModel(ListKH.toArray()));
+            cbDiemden.setModel(new DefaultComboBoxModel(ListKH.toArray()));
+        } catch (Exception ex) {
+            Logger.getLogger(SearchTour.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_btnTrongnuocActionPerformed
+
+    private void btnXacnhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacnhanActionPerformed
+        try {
+            // TODO add your handling code here:
+            DSTour ds = new DSTour();
+            String a = ListKH.get(cbKhoihanh.getSelectedIndex()).getMaDiaDiem();
+            String b = null;
+            boolean check = true;
+            if (btnTrongnuoc.isEnabled()) {
+                b = ListKH.get(cbDiemden.getSelectedIndex()).getMaDiaDiem();
+            } else {
+                b = listDD.get(cbDiemden.getSelectedIndex()).getMaDiaDiem();
+            }
+//            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+//            try {
+//                System.out.println(String.valueOf(txtDate.getText()));
+//                String strDate = formatter.format(String.valueOf(txtDate.getText()));
+//                System.out.println(strDate);
+//            } catch (Exception e) {
+//                JOptionPane.showMessageDialog(this, "Ngày không đúng định dạng dd/MM/yyyy");
+//                check = false;
+//            }
+            if (txtDate.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Ngày không được bỏ trống");
+                check = false;
+            }
+            if (a != b && check == true) {
+                ds.settittle(cbKhoihanh.getSelectedItem().toString(), cbDiemden.getSelectedItem().toString(), a, b);
+                ds.show();
+                this.setVisible(false);
+            } else {
+//                JOptionPane.showMessageDialog(this, "Điểm đến phải khác điểm khởi hành");
+            }
+            listTourSearch = new DAOtour().searchTour(a, b);
+            ds.setTable(listTourSearch);
+        } catch (Exception ex) {
+            Logger.getLogger(SearchTour.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnXacnhanActionPerformed
+
+    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
+        // TODO add your handling code here:
+        int a = JOptionPane.showConfirmDialog(this, "Xác nhận thoát", "Thông báo", JOptionPane.YES_NO_OPTION);
+        if (a == OK_OPTION) {
+            DangNhap b = new DangNhap();
+            b.show();
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnHuyActionPerformed
+
+    private void btnNuocngoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuocngoaiActionPerformed
+        try {
+            btnTrongnuoc.setEnabled(false);
+            cbKhoihanh.setModel(new DefaultComboBoxModel(ListKH.toArray()));
+            cbDiemden.setModel(new DefaultComboBoxModel(listDD.toArray()));
+        } catch (Exception ex) {
+            Logger.getLogger(SearchTour.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnNuocngoaiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -73,11 +286,26 @@ public class SearchTour extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SearchTour().setVisible(true);
+                try {
+                    new SearchTour().setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(SearchTour.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnHuy;
+    private javax.swing.JButton btnNuocngoai;
+    private javax.swing.JButton btnTrongnuoc;
+    private javax.swing.JButton btnXacnhan;
+    private javax.swing.JComboBox cbDiemden;
+    private javax.swing.JComboBox cbKhoihanh;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JTextField txtDate;
     // End of variables declaration//GEN-END:variables
 }
