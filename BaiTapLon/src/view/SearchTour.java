@@ -70,6 +70,7 @@ public class SearchTour extends javax.swing.JFrame {
         btnNuocngoai = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Tìm kiếm Tour");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Công ty du lịch VietTravel");

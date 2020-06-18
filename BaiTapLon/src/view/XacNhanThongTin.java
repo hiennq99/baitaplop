@@ -64,6 +64,7 @@ public class XacNhanThongTin extends javax.swing.JFrame {
         lbMave = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Xác nhận thông tin");
 
         jLabel1.setText("Thông tin khách hàng");
         jLabel1.setAlignmentX(0.5F);
