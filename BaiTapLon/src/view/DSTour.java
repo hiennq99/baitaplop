@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -23,13 +24,25 @@ public class DSTour extends javax.swing.JFrame {
     /**
      * Creates new form DSTour
      */
+    private final String[] header = {"Mã Tour", "Tên Tour", "Ngày khởi hành", "Thời lượng", "Giá"};
     private ArrayList<Tour> list = new ArrayList<>();
+    private DefaultTableModel model;
 
     public DSTour() {
         initComponents();
         btnDat.setEnabled(false);
         btnXemChiTiet.setEnabled(false);
+        model = (DefaultTableModel) tblDSchuyenbay.getModel();
+        model.setColumnIdentifiers(header);
 
+    }
+    public void showTable(ArrayList<Tour> items) {
+        model.setRowCount(0);
+        for (Tour item : items) {
+            model.addRow(new Object[]{
+               item.getMaTour(), item.getTenTour(), item.getNgayKH(), item.getThoiLuong(), item.getGia()
+            });
+        }
     }
 
     /**
@@ -216,9 +229,7 @@ public class DSTour extends javax.swing.JFrame {
         lbDD1.setText(lbDD);
     }
 
-    public void setTable(ArrayList a) {
-        tblDSchuyenbay.setModel(new CustomTable(a));
-    }
+    
     private void btnDatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatActionPerformed
         // TODO add your handling code here:
         DangKyTour dk = new DangKyTour();
@@ -229,12 +240,11 @@ public class DSTour extends javax.swing.JFrame {
             this.setVisible(false);
             ArrayList<Ve> listVe = new ArrayList<Ve>();
             listVe = new DAOve().getListVe();
-            XacNhanThongTin xn = new XacNhanThongTin();
             int x = tblDSchuyenbay.getSelectedRow();
             String mt = tblDSchuyenbay.getValueAt(x, 0).toString();
             int i = listVe.size() + 1;
             String mv = "Ve" + i + "";
-            xn.setTour(lbtour2.getText(), mt, mv);
+            dk.setMa(mt);
         }
     }//GEN-LAST:event_btnDatActionPerformed
 
@@ -271,7 +281,7 @@ public class DSTour extends javax.swing.JFrame {
         ChiTietTour ct = new ChiTietTour();
         list = new DAOtour().searchTour(lbKH.getText().trim(), lbDD1.getText().trim());
         int a = tblDSchuyenbay.getSelectedRow();
-             ct.show();
+        ct.show();
 //        ct.settittle(list.get(a).getDichVu(), list.get(a).getLichTrinhTour(), list.get(a).getChiTietLichTrinh());
     }//GEN-LAST:event_btnXemChiTietActionPerformed
 

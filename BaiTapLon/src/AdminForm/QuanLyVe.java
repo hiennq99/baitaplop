@@ -5,7 +5,7 @@
  */
 package AdminForm;
 
-import Dao.Ve;
+import Dao.ThongKe;
 import controller.DAOve;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -21,8 +21,8 @@ public class QuanLyVe extends javax.swing.JFrame {
     /**
      * Creates new form QuanLyVe
      */
-    private final String[] header = {"STT", "ID Vé", "Mã User", "Mã Tour", "Tên Vé"};
-    private ArrayList<Ve> items = new ArrayList<>();
+    private final String[] header = {"STT", "Mã Tour", "Mã Khách Hàng", "Ngày KH", "Thời Lượng", "Giá", "Số Người", "Khuyến Mại"};
+    private ArrayList<ThongKe> items = new ArrayList<>();
     private int selectedIndex;
     private DefaultTableModel model;
 
@@ -30,14 +30,15 @@ public class QuanLyVe extends javax.swing.JFrame {
         initComponents();
         model = (DefaultTableModel) tbQuanLyVe.getModel();
         model.setColumnIdentifiers(header);
-        showTable();
+        items = new DAOve().getListVe();
+        showTable(items);
     }
 
     public void clearText() {
-        txtIDve.setText("");
-        txtMaUser.setText("");
-        txtMaTour.setText("");
-        txtTenVe.setText("");
+//        txtIDve.setText("");
+//        txtMaUser.setText("");
+//        txtMaTour.setText("");
+//        txtTenVe.setText("");
     }
 
     /**
@@ -51,19 +52,16 @@ public class QuanLyVe extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tbQuanLyVe = new javax.swing.JTable();
-        txtTenVe = new javax.swing.JTextField();
-        btnThem = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        btnSua = new javax.swing.JButton();
-        btnXoa = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        txtMaTour = new javax.swing.JTextField();
         btnThoai = new javax.swing.JButton();
-        txtIDve = new javax.swing.JTextField();
-        jlable6 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        txtMaUser = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        tbMa = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        lbSoKhach = new javax.swing.JLabel();
+        lbTongTien = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,31 +83,8 @@ public class QuanLyVe extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbQuanLyVe);
 
-        btnThem.setText("Thêm");
-        btnThem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemActionPerformed(evt);
-            }
-        });
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel1.setText("Quản Lý Vé");
-
-        btnSua.setText("Sửa");
-        btnSua.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSuaActionPerformed(evt);
-            }
-        });
-
-        btnXoa.setText("Xóa");
-        btnXoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoaActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setText("ID Vé");
+        jLabel1.setText("Thống Kê");
 
         btnThoai.setText("Thoát");
         btnThoai.addActionListener(new java.awt.event.ActionListener() {
@@ -118,166 +93,109 @@ public class QuanLyVe extends javax.swing.JFrame {
             }
         });
 
-        jlable6.setText("Tên vé");
+        tbMa.setText("Nhập Mã Tour");
 
-        jLabel4.setText("Mã tour");
+        jButton1.setText("Thống kê");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jLabel5.setText("Mã user");
+        jLabel3.setFont(new java.awt.Font("Tahoma", 3, 13)); // NOI18N
+        jLabel3.setText("Sô khách");
+
+        lbSoKhach.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        lbSoKhach.setText("0");
+
+        lbTongTien.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        lbTongTien.setText("0");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 3, 13)); // NOI18N
+        jLabel6.setText("Tổng tiền");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 3, 13)); // NOI18N
+        jLabel7.setText("VNĐ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(33, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 782, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(66, 66, 66)
+                                .addComponent(jLabel2)
+                                .addGap(36, 36, 36))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(tbMa, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(169, 169, 169)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(lbSoKhach, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addComponent(lbTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel7)
+                        .addGap(31, 31, 31))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(jLabel2)
-                        .addGap(23, 23, 23)
-                        .addComponent(txtIDve, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(80, 80, 80)
-                                .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtMaTour, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(66, 66, 66)
-                                .addComponent(jLabel1)))
-                        .addGap(69, 69, 69)
-                        .addComponent(jlable6)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtTenVe, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(305, 305, 305)
+                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(133, 133, 133)
-                        .addComponent(btnThem)
-                        .addGap(107, 107, 107)
-                        .addComponent(btnSua)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnXoa)
-                        .addGap(121, 121, 121)
-                        .addComponent(btnThoai)
-                        .addGap(99, 99, 99))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 41, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtMaUser, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 782, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
+                        .addGap(346, 346, 346)
+                        .addComponent(btnThoai, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtIDve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtMaTour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlable6)
-                    .addComponent(txtTenVe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtMaUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tbMa, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(lbSoKhach)
+                            .addComponent(jLabel6)
+                            .addComponent(lbTongTien)
+                            .addComponent(jLabel7))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnThem)
-                    .addComponent(btnSua)
-                    .addComponent(btnXoa)
-                    .addComponent(btnThoai))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addComponent(btnThoai, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        // TODO add your handling code here:
-        boolean isSuccess = true;
-        ArrayList<Validator> data = new ArrayList<>();
-        Validator IDve = new Validator(txtIDve.getText(), new String[]{"required"}, "ID Vé"),
-                IDuser = new Validator(txtMaUser.getText(), new String[]{"required"}, "Mã User"),
-                MaTour = new Validator(txtMaTour.getText(), new String[]{"required"}, "Mã Tour"),
-                TenVe = new Validator(txtTenVe.getText(), new String[]{"required", "isString"}, "Tên Vé");
-        data.add(IDve);
-        data.add(IDuser);
-        data.add(MaTour);
-        data.add(TenVe);
-        for (Validator s : data) {
-            if (!s.setTextField(this)) {
-                isSuccess = false;
-            }
-        }
-        if (isSuccess) {
-            Ve item = new Ve(IDve.getText(), IDuser.getText(), MaTour.getText(), TenVe.getText());
-            if (new DAOve().addItem(item)) {
-                this.showTable();
-                JOptionPane.showMessageDialog(this, "Thêm mới thành công!");
-                clearText();
-            } else {
-                JOptionPane.showMessageDialog(this, "Vé đã tồn tại!");
-            }
-        }
-    }//GEN-LAST:event_btnThemActionPerformed
-
     private void tbQuanLyVeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbQuanLyVeMouseClicked
         // TODO add your handling code here:
-        int rơw = tbQuanLyVe.getSelectedRow();
-        txtIDve.setText(model.getValueAt(rơw, 1).toString());
-        txtMaUser.setText(model.getValueAt(rơw, 2).toString());
-        txtMaTour.setText(model.getValueAt(rơw, 3).toString());
-        txtTenVe.setText(model.getValueAt(rơw, 4).toString());
+//        int rơw = tbQuanLyVe.getSelectedRow();
+//        txtIDve.setText(model.getValueAt(rơw, 1).toString());
+//        txtMaUser.setText(model.getValueAt(rơw, 2).toString());
+//        txtMaTour.setText(model.getValueAt(rơw, 3).toString());
+//        txtTenVe.setText(model.getValueAt(rơw, 4).toString());
     }//GEN-LAST:event_tbQuanLyVeMouseClicked
-
-    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        // TODO add your handling code here:
-        boolean isSuccess = true;
-        ArrayList<Validator> data = new ArrayList<>();
-        Validator IDve = new Validator(txtIDve.getText(), new String[]{"required"}, "ID Vé"),
-                IDuser = new Validator(txtMaUser.getText(), new String[]{"required"}, "Mã User"),
-                MaTour = new Validator(txtMaTour.getText(), new String[]{"required"}, "Mã Tour"),
-                TenVe = new Validator(txtTenVe.getText(), new String[]{"required", "isString"}, "Tên Vé");
-        data.add(IDve);
-        data.add(IDuser);
-        data.add(MaTour);
-        data.add(TenVe);
-        for (Validator s : data) {
-            if (!s.setTextField(this)) {
-                isSuccess = false;
-            }
-        }
-        if (isSuccess) {
-            Ve item = new Ve(txtIDve.getText(), txtMaUser.getText(), txtMaTour.getText(), txtTenVe.getText());
-            if (new DAOve().updateItem(item)) {
-                this.showTable();
-                JOptionPane.showMessageDialog(this, "Sửa mới thành công!");
-                clearText();
-            } else {
-                JOptionPane.showMessageDialog(this, "Không sửa được!");
-            }
-        }
-    }//GEN-LAST:event_btnSuaActionPerformed
-
-    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        // TODO add your handling code here:
-        Ve item = new Ve(txtIDve.getText(), txtMaUser.getText(), txtMaTour.getText(), txtTenVe.getText());
-        if (new DAOve().deleteItem(item)) {
-            this.showTable();
-            JOptionPane.showMessageDialog(this, "Xóa thành công!");
-            clearText();
-        } else {
-            JOptionPane.showMessageDialog(this, "Không xóa được!");
-        }
-    }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnThoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoaiActionPerformed
         // TODO add your handling code here:
@@ -285,6 +203,22 @@ public class QuanLyVe extends javax.swing.JFrame {
         a.show();
         this.dispose();
     }//GEN-LAST:event_btnThoaiActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        ArrayList<ThongKe> itemss = new ArrayList<>();
+        itemss = new DAOve().getList(tbMa.getText().trim().toUpperCase());
+        showTable(itemss);
+        int tongKhach = 0;
+        int tongTien = 0;
+        for (ThongKe item : itemss) {
+            tongKhach += Integer.parseInt(item.getSoNguoi());
+            tongTien  += Double.parseDouble(item.getGia()) * Integer.parseInt(item.getSoNguoi()) * Integer.parseInt(item.getGiaTriKM()) / 100;
+        }
+        
+        lbSoKhach.setText(tongKhach + "");
+        lbTongTien.setText(tongTien + "");
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -322,31 +256,27 @@ public class QuanLyVe extends javax.swing.JFrame {
     }
 
     // hien thi danh sach
-    public void showTable() {
-        items = new DAOve().getListVe();
+    public void showTable(ArrayList<ThongKe> items) {
         model.setRowCount(0);
-        for (Ve item : items) {
+        for (ThongKe item : items) {
             model.addRow(new Object[]{
-                model.getRowCount() + 1, item.getIDve(), item.getIDuser(), item.getMaTour(), item.getTenVe()
+                model.getRowCount() + 1, item.getMaTour(), item.getIdUser(), item.getNgayKH(), item.getThoiLuong(), item.getGia(), item.getSoNguoi(), item.getGiaTriKM()
             });
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSua;
-    private javax.swing.JButton btnThem;
     private javax.swing.JButton btnThoai;
-    private javax.swing.JButton btnXoa;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel jlable6;
+    private javax.swing.JLabel lbSoKhach;
+    private javax.swing.JLabel lbTongTien;
+    private javax.swing.JTextField tbMa;
     private javax.swing.JTable tbQuanLyVe;
-    private javax.swing.JTextField txtIDve;
-    private javax.swing.JTextField txtMaTour;
-    private javax.swing.JTextField txtMaUser;
-    private javax.swing.JTextField txtTenVe;
     // End of variables declaration//GEN-END:variables
 }

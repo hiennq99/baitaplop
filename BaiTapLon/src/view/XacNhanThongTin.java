@@ -107,7 +107,7 @@ public class XacNhanThongTin extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setText("Mã vé");
+        jLabel10.setText("Mã xác nhận");
 
         lbMave.setText("jLabel10");
 

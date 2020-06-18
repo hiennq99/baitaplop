@@ -209,15 +209,6 @@ public class SearchTour extends javax.swing.JFrame {
             } else {
                 b = listDD.get(cbDiemden.getSelectedIndex()).getMaDiaDiem();
             }
-//            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-//            try {
-//                System.out.println(String.valueOf(txtDate.getText()));
-//                String strDate = formatter.format(String.valueOf(txtDate.getText()));
-//                System.out.println(strDate);
-//            } catch (Exception e) {
-//                JOptionPane.showMessageDialog(this, "Ngày không đúng định dạng dd/MM/yyyy");
-//                check = false;
-//            }
             if (txtDate.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Ngày không được bỏ trống");
                 check = false;
@@ -230,7 +221,8 @@ public class SearchTour extends javax.swing.JFrame {
 //                JOptionPane.showMessageDialog(this, "Điểm đến phải khác điểm khởi hành");
             }
             listTourSearch = new DAOtour().searchTour(a, b);
-            ds.setTable(listTourSearch);
+//            ds.setTable(listTourSearch);
+            ds.showTable(listTourSearch);
         } catch (Exception ex) {
             Logger.getLogger(SearchTour.class.getName()).log(Level.SEVERE, null, ex);
         }

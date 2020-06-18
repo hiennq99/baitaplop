@@ -32,6 +32,7 @@ public class ThongKe extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("jLabel1");
 
         jLabel2.setText("jLabel2");
@@ -48,7 +49,7 @@ public class ThongKe extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(39, 39, 39)
                         .addComponent(jLabel2)))
-                .addContainerGap(442, Short.MAX_VALUE))
+                .addContainerGap(388, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -57,7 +58,7 @@ public class ThongKe extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addContainerGap(467, Short.MAX_VALUE))
+                .addContainerGap(452, Short.MAX_VALUE))
         );
 
         pack();

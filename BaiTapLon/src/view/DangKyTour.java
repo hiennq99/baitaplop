@@ -7,7 +7,9 @@ package view;
 
 import Dao.DiaDiem;
 import Dao.Users;
+import Dao.Ve;
 import controller.DAOuser;
+import controller.DAOve;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -32,6 +34,10 @@ public class DangKyTour extends javax.swing.JFrame {
 
     public DangKyTour() {
         initComponents();
+    }
+    public  void setMa(String s)
+    {
+        lbMaTour.setText(s);
     }
     public void clearText(){
         txtHoten.setText("");
@@ -63,6 +69,8 @@ public class DangKyTour extends javax.swing.JFrame {
         txtSonguoi = new javax.swing.JTextField();
         btnDangky = new javax.swing.JButton();
         btnHuybo = new javax.swing.JButton();
+        lbMaTour = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -104,10 +112,20 @@ public class DangKyTour extends javax.swing.JFrame {
             }
         });
 
+        lbMaTour.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
+        lbMaTour.setText("jLabel7");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel7.setText("Mã Tour");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(222, 222, 222))
             .addGroup(layout.createSequentialGroup()
                 .addGap(66, 66, 66)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,30 +133,36 @@ public class DangKyTour extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnDangky, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                        .addComponent(btnHuybo, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtDiachi, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtSdt, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtHoten, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtSonguoi))
-                .addGap(107, 107, 107))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(220, 220, 220)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lbMaTour)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnDangky, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                                .addComponent(btnHuybo, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtDiachi, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtSdt, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtHoten, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtSonguoi))
+                        .addGap(107, 107, 107))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(31, 31, 31)
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbMaTour, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtHoten, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
@@ -148,7 +172,7 @@ public class DangKyTour extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,15 +224,17 @@ public class DangKyTour extends javax.swing.JFrame {
                 id = "ID";
             }
             System.out.println(id+sz);
+            Ve itemve =  new Ve("Ve"+sz,id + sz,lbMaTour.getText(),"Ve du lich");
             Users item = new Users(id + sz, txtHoten.getText(), txtSdt.getText(), txtEmail.getText(), txtDiachi.getText(), Integer.parseInt(txtSonguoi.getText()));
-            if (new DAOuser().addItem(item)) {
+            if (new DAOuser().addItem(item) && new DAOve().addItem(itemve)) {
                 JOptionPane.showMessageDialog(this, "Đăng kí thành công!");
                 clearText();
             } else {
             }
             XacNhanThongTin xn = new XacNhanThongTin();
-            xn.setUser(id, txtHoten.getText(), txtSdt.getText(), txtEmail.getText(), txtDiachi.getText(), txtSonguoi.getText());
             xn.show();
+            xn.setUser(id+sz, hoTen.getText(), sdt.getText(), email.getText(), diachi.getText(), songuoi.getText());
+            System.out.println(txtHoten.getText());
             this.dispose();
         }
     }//GEN-LAST:event_btnDangkyActionPerformed
@@ -272,6 +298,8 @@ public class DangKyTour extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel lbMaTour;
     private javax.swing.JTextField txtDiachi;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtHoten;
