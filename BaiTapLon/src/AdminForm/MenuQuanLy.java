@@ -5,6 +5,12 @@
  */
 package AdminForm;
 
+import java.awt.Color;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import javax.swing.JPanel;
+
 /**
  *
  * @author nvta1
@@ -17,6 +23,19 @@ public class MenuQuanLy extends javax.swing.JFrame {
     public MenuQuanLy() {
         initComponents();
     }
+        class jPanelGradient extends JPanel{
+        protected void paintComponent(Graphics g){
+            Graphics2D g2d = (Graphics2D) g;
+            int width = getWidth();
+            int height = getHeight();
+            
+            Color color1 = new Color(52,143,80);
+            Color color2 = new Color(86,180,211);
+            GradientPaint gp = new GradientPaint(0,0,color1,180,height,color2);
+            g2d.setPaint(gp);
+            g2d.fillRect(0, 0, width, height);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,32 +46,18 @@ public class MenuQuanLy extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new jPanelGradient();
+        btnQuanLyVe = new javax.swing.JButton();
+        btnQuanLyTour = new javax.swing.JButton();
+        btnQuanlykhuyenmai = new javax.swing.JButton();
+        btnThongke = new javax.swing.JButton();
+        btnThat = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnQuanLyUser = new javax.swing.JButton();
         btnQuanLyDD = new javax.swing.JButton();
-        btnQuanLyVe = new javax.swing.JButton();
-        btnQuanLyTour = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel1.setText("Menu Quản Lý");
-
-        btnQuanLyUser.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btnQuanLyUser.setText("Quản lý user");
-        btnQuanLyUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnQuanLyUserActionPerformed(evt);
-            }
-        });
-
-        btnQuanLyDD.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        btnQuanLyDD.setText("Quản lý địa điểm");
-        btnQuanLyDD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnQuanLyDDActionPerformed(evt);
-            }
-        });
+        setTitle("Menu Quản Lý");
 
         btnQuanLyVe.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnQuanLyVe.setText("Quản lý vé");
@@ -70,43 +75,110 @@ public class MenuQuanLy extends javax.swing.JFrame {
             }
         });
 
+        btnQuanlykhuyenmai.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnQuanlykhuyenmai.setText("Quản lý khuyến mại");
+        btnQuanlykhuyenmai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuanlykhuyenmaiActionPerformed(evt);
+            }
+        });
+
+        btnThongke.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnThongke.setText("Thống kê");
+
+        btnThat.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnThat.setText("Thoát");
+        btnThat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThatActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel1.setText("Menu Quản Lý");
+        jLabel1.setToolTipText("");
+
+        btnQuanLyUser.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnQuanLyUser.setText("Quản lý user");
+        btnQuanLyUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuanLyUserActionPerformed(evt);
+            }
+        });
+
+        btnQuanLyDD.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnQuanLyDD.setText("Quản lý địa điểm");
+        btnQuanLyDD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuanLyDDActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(91, 91, 91)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnQuanLyVe, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
+                        .addComponent(btnQuanLyTour, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnQuanLyUser, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnQuanLyDD))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnQuanlykhuyenmai)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnThongke, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(115, 115, 115))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(235, 235, 235)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(315, 315, 315)
+                        .addComponent(btnThat, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(50, 50, 50)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnQuanLyDD)
+                    .addComponent(btnQuanLyUser))
+                .addGap(73, 73, 73)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnQuanLyTour)
+                    .addComponent(btnQuanLyVe))
+                .addGap(68, 68, 68)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnThongke, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnQuanlykhuyenmai, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addComponent(btnThat, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(253, 253, 253)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(138, 138, 138)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnQuanLyUser, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
-                            .addComponent(btnQuanLyVe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(141, 141, 141)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnQuanLyDD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnQuanLyTour, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(106, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jLabel1)
-                .addGap(53, 53, 53)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnQuanLyUser)
-                    .addComponent(btnQuanLyDD))
-                .addGap(91, 91, 91)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnQuanLyVe)
-                    .addComponent(btnQuanLyTour))
-                .addContainerGap(88, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pack();
+        setSize(new java.awt.Dimension(747, 517));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnQuanLyUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuanLyUserActionPerformed
@@ -136,6 +208,18 @@ public class MenuQuanLy extends javax.swing.JFrame {
         a.show();
         this.dispose();
     }//GEN-LAST:event_btnQuanLyTourActionPerformed
+
+    private void btnQuanlykhuyenmaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuanlykhuyenmaiActionPerformed
+        // TODO add your handling code here:
+        QuanLyKhuyenMai a = new QuanLyKhuyenMai();
+        a.show();
+        this.dispose();
+    }//GEN-LAST:event_btnQuanlykhuyenmaiActionPerformed
+
+    private void btnThatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThatActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnThatActionPerformed
 
     /**
      * @param args the command line arguments
@@ -178,6 +262,10 @@ public class MenuQuanLy extends javax.swing.JFrame {
     private javax.swing.JButton btnQuanLyTour;
     private javax.swing.JButton btnQuanLyUser;
     private javax.swing.JButton btnQuanLyVe;
+    private javax.swing.JButton btnQuanlykhuyenmai;
+    private javax.swing.JButton btnThat;
+    private javax.swing.JButton btnThongke;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
