@@ -29,8 +29,8 @@ public class MenuQuanLy extends javax.swing.JFrame {
             int width = getWidth();
             int height = getHeight();
             
-            Color color1 = new Color(52,143,80);
-            Color color2 = new Color(86,180,211);
+            Color color1 = new Color(255,255,255);
+            Color color2 = new Color(200,255,255);
             GradientPaint gp = new GradientPaint(0,0,color1,180,height,color2);
             g2d.setPaint(gp);
             g2d.fillRect(0, 0, width, height);
@@ -59,6 +59,7 @@ public class MenuQuanLy extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Quản Lý");
 
+        btnQuanLyVe.setBackground(new java.awt.Color(0, 153, 153));
         btnQuanLyVe.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnQuanLyVe.setText("Quản lý vé");
         btnQuanLyVe.addActionListener(new java.awt.event.ActionListener() {
@@ -67,6 +68,7 @@ public class MenuQuanLy extends javax.swing.JFrame {
             }
         });
 
+        btnQuanLyTour.setBackground(new java.awt.Color(0, 153, 153));
         btnQuanLyTour.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnQuanLyTour.setText("Quản lý tour");
         btnQuanLyTour.addActionListener(new java.awt.event.ActionListener() {
@@ -75,6 +77,7 @@ public class MenuQuanLy extends javax.swing.JFrame {
             }
         });
 
+        btnQuanlykhuyenmai.setBackground(new java.awt.Color(0, 153, 153));
         btnQuanlykhuyenmai.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnQuanlykhuyenmai.setText("Quản lý khuyến mại");
         btnQuanlykhuyenmai.addActionListener(new java.awt.event.ActionListener() {
@@ -83,9 +86,11 @@ public class MenuQuanLy extends javax.swing.JFrame {
             }
         });
 
+        btnThongke.setBackground(new java.awt.Color(0, 153, 153));
         btnThongke.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnThongke.setText("Thống kê");
 
+        btnThat.setBackground(new java.awt.Color(0, 153, 153));
         btnThat.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnThat.setText("Thoát");
         btnThat.addActionListener(new java.awt.event.ActionListener() {
@@ -98,6 +103,7 @@ public class MenuQuanLy extends javax.swing.JFrame {
         jLabel1.setText("Menu Quản Lý");
         jLabel1.setToolTipText("");
 
+        btnQuanLyUser.setBackground(new java.awt.Color(204, 255, 255));
         btnQuanLyUser.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnQuanLyUser.setText("Quản lý user");
         btnQuanLyUser.addActionListener(new java.awt.event.ActionListener() {
@@ -106,6 +112,7 @@ public class MenuQuanLy extends javax.swing.JFrame {
             }
         });
 
+        btnQuanLyDD.setBackground(new java.awt.Color(0, 153, 153));
         btnQuanLyDD.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnQuanLyDD.setText("Quản lý địa điểm");
         btnQuanLyDD.addActionListener(new java.awt.event.ActionListener() {

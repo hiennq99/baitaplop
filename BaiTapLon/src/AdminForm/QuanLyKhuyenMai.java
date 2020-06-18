@@ -43,8 +43,8 @@ public class QuanLyKhuyenMai extends javax.swing.JFrame {
             int width = getWidth();
             int height = getHeight();
             
-            Color color1 = new Color(52,143,80);
-            Color color2 = new Color(86,180,211);
+            Color color1 = new Color(255,255,255);
+            Color color2 = new Color(200,255,255);
             GradientPaint gp = new GradientPaint(0,0,color1,180,height,color2);
             g2d.setPaint(gp);
             g2d.fillRect(0, 0, width, height);
@@ -95,6 +95,7 @@ public class QuanLyKhuyenMai extends javax.swing.JFrame {
 
         jLabel3.setText("Ngày Bắt Đầu");
 
+        btnThem.setBackground(new java.awt.Color(0, 153, 153));
         btnThem.setText("Thêm");
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,6 +105,7 @@ public class QuanLyKhuyenMai extends javax.swing.JFrame {
 
         jLabel4.setText("Tên Khuyến Mại");
 
+        btnSua.setBackground(new java.awt.Color(0, 153, 153));
         btnSua.setText("Sửa");
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,6 +115,7 @@ public class QuanLyKhuyenMai extends javax.swing.JFrame {
 
         jLabel5.setText("Ngày Kết Thúc");
 
+        btnXoa.setBackground(new java.awt.Color(0, 153, 153));
         btnXoa.setText("Xóa");
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,6 +125,7 @@ public class QuanLyKhuyenMai extends javax.swing.JFrame {
 
         jLabel6.setText("Giá Trị Khuyến Mại");
 
+        btnThoat.setBackground(new java.awt.Color(0, 153, 153));
         btnThoat.setText("Thoát");
         btnThoat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,7 +133,7 @@ public class QuanLyKhuyenMai extends javax.swing.JFrame {
             }
         });
 
-        btnClear.setBackground(new java.awt.Color(204, 204, 255));
+        btnClear.setBackground(new java.awt.Color(0, 153, 153));
         btnClear.setText("Clear");
         btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,6 +144,7 @@ public class QuanLyKhuyenMai extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Quản Lý Khuyến Mại");
 
+        tbQuanLyKhuyenMai.setBackground(new java.awt.Color(204, 255, 255));
         tbQuanLyKhuyenMai.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

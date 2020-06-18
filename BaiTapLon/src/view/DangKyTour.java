@@ -8,6 +8,10 @@ package view;
 import Dao.DiaDiem;
 import Dao.Users;
 import controller.DAOuser;
+import java.awt.Color;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -17,6 +21,7 @@ import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.OK_CANCEL_OPTION;
 import static javax.swing.JOptionPane.OK_OPTION;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
+import javax.swing.JPanel;
 import validate.Validator;
 
 /**
@@ -32,6 +37,19 @@ public class DangKyTour extends javax.swing.JFrame {
 
     public DangKyTour() {
         initComponents();
+    }
+        class jPanelGradient extends JPanel{
+        protected void paintComponent(Graphics g){
+            Graphics2D g2d = (Graphics2D) g;
+            int width = getWidth();
+            int height = getHeight();
+            
+            Color color1 = new Color(52,143,80);
+            Color color2 = new Color(86,180,211);
+            GradientPaint gp = new GradientPaint(0,0,color1,180,height,color2);
+            g2d.setPaint(gp);
+            g2d.fillRect(0, 0, width, height);
+        }
     }
     public void clearText(){
         txtHoten.setText("");
@@ -50,7 +68,7 @@ public class DangKyTour extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jPanel1 = new jPanelGradient();
         txtHoten = new javax.swing.JTextField();
         txtSdt = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
@@ -182,7 +200,8 @@ public class DangKyTour extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pack();
+        setSize(new java.awt.Dimension(671, 478));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtHotenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHotenActionPerformed
