@@ -14,6 +14,7 @@ create table USERS
 (
 	IDuser char(10) PRIMARY KEY,
 	HoTen varchar(30) not null,
+	QuocTich varchar(20),
 	SoDT varchar(10),
 	Email varchar(30),
 	DiaChi varchar(30),

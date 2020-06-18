@@ -271,8 +271,8 @@ public class DSTour extends javax.swing.JFrame {
         ChiTietTour ct = new ChiTietTour();
         list = new DAOtour().searchTour(lbKH.getText().trim(), lbDD1.getText().trim());
         int a = tblDSchuyenbay.getSelectedRow();
-        ct.show();
-        ct.settittle(list.get(a).getDichVu(), list.get(a).getLichTrinhTour(), list.get(a).getChiTietLichTrinh());
+             ct.show();
+//        ct.settittle(list.get(a).getDichVu(), list.get(a).getLichTrinhTour(), list.get(a).getChiTietLichTrinh());
     }//GEN-LAST:event_btnXemChiTietActionPerformed
 
     /**
